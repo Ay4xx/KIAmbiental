@@ -1,7 +1,9 @@
 // Importamos los módulos de rutas y los componentes de página
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
 import { useState } from "react";
 import './App.css';
 
@@ -12,10 +14,29 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />{/*pruebapara dash, la volvi raiz*/}
+        <Route
+          path="/login"
+          element={<Login setAutenticado={setAutenticado} />}
+        />
+        <Route
+          path="/dashboard"
+          element={
+            autenticado
+              ? <Dashboard />
+              : <Navigate to="/login" replace />
+          }
+        />
         
-        // solo accesible si el usuario está autenticado
-        <Route path="/Home" element={<Home setAutenticado={setAutenticado} />} />
+        {/* solo accesible si el usuario está autenticado, igual para dash*/}
+        <Route
+          path="/home"
+          element={
+            autenticado
+              ? <Home setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
         
       </Routes>
     </BrowserRouter>
