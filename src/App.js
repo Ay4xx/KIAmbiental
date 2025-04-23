@@ -12,12 +12,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         
-        // Ruta para iniciar sesión, pasamos la función que actualiza el estado de autenticación
-        <Route path="/login" element={<Login setAutenticado={setAutenticado} />} />
+        // solo accesible si el usuario está autenticado
+        <Route path="/Home" element={<Home setAutenticado={setAutenticado} />} />
         
-        // Ruta protegida: solo accesible si el usuario está autenticado
       </Routes>
     </BrowserRouter>
   );
