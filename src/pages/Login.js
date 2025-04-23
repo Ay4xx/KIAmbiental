@@ -8,7 +8,7 @@ function Login({ setAutenticado }) {
   const navigate = useNavigate();
 
   
-st {[username, setUsername] = useState("");
+  const {[username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
