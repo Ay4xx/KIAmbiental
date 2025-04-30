@@ -19,7 +19,7 @@ function Login({ setAutenticado }) {
 
     if (username === usuario && password === contrasena) {
       setAutenticado(true);
-      navigate("/dashboard")
+      navigate("/home")
     } else {
       setError("Usuario o contraseña incorrectos");
     }
