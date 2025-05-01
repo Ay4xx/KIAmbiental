@@ -23,7 +23,7 @@ function App() {
           path="/dashboard"
           element={
             autenticado
-              ? <Dashboard />
+              ? <Dashboard setAutenticado={setAutenticado}/>
               : <Navigate to="/login" replace />
           }
         />

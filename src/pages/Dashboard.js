@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { prueba } from '../pruebas/prueba';
+import { useNavigate } from 'react-router-dom';
+import { 
+  ResponsiveContainer, 
+  BarChart, 
+  CartesianGrid, 
+  XAxis, 
+  YAxis, 
+  Tooltip, 
+  Bar 
+} from 'recharts';
 
 
 const Spincarga = () =>
@@ -30,55 +40,62 @@ KPICard.propTypes =
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
-const BarChart = ({ data }) => 
-{
-    const max = Math.max(...data.map(d => d.waste_kg));
-    return(
-      <div className="my-8">
-        <h4 className="text-lg font-semibold mb-4">Residuos por Departamento</h4>
-        <div className="flex items-end space-x-4 h-40">
-          {data.map(({ department, waste_kg }) => 
-          (
-            <div key={department} className="flex-1 text-center">
-              <div
-                className="mx-auto mb-2"
-                style=
-                {{
-                  height: `${(waste_kg / max) * 100}%`,
-                  width: '40px',
-                  backgroundColor: '#3b82f6',
-                  borderRadius: '8px',
-                }}
-                aria-label={`${department}: ${waste_kg} kg`}
-              />
-              <span className="block text-xs text-gray-700">{department}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-}; 
-BarChart.propTypes = 
-{
-    data: PropTypes.arrayOf
-    (
-      PropTypes.shape
-      ({
-        department: PropTypes.string.isRequired,
-        waste_kg: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-};
+// const BarChart = ({ data }) => 
+// {
+//     const max = Math.max(...data.map(d => d.waste_kg));
+//     return(
+//       <div className="my-8">
+//         <h4 className="text-lg font-semibold mb-4">Residuos por Departamento</h4>
+//         <div className="flex items-end space-x-4 h-40">
+//           {data.map(({ department, waste_kg }) => 
+//           (
+//             <div key={department} className="flex-1 text-center">
+//               <div
+//                 className="mx-auto mb-2"
+//                 style=
+//                 {{
+//                   height: `${(waste_kg / max) * 100}%`,
+//                   width: '40px',
+//                   backgroundColor: '#3b82f6',
+//                   borderRadius: '8px',
+//                 }}
+//                 aria-label={`${department}: ${waste_kg} kg`}
+//               />
+//               <span className="block text-xs text-gray-700">{department}</span>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     );
+// }; 
+// BarChart.propTypes = 
+// {
+//     data: PropTypes.arrayOf
+//     (
+//       PropTypes.shape
+//       ({
+//         department: PropTypes.string.isRequired,
+//         waste_kg: PropTypes.number.isRequired,
+//       })
+//     ).isRequired,
+// };
 //necesito 3 componente pricipales
 //datos
 //carga
 //error
+//30/04/2025
+//intentare otro enfoque
+
 const Dashboard = () => 
 {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     //hook para lacargadedatos
+
+    //para vavegar a home
+    const navigate = useNavigate();
+
     useEffect(() => 
     {
       // pra el spin
@@ -109,7 +126,35 @@ const Dashboard = () =>
     const avgWaste = data.length ? (totalWaste / data.length).toFixed(2) : 0; //promedio 
   
     return(
-      <main className="container mx-auto p-4" aria-labelledby="dashboard-title">
+      <main 
+       className="container mx-auto p-4"
+       aria-labelledby="dashboard-title"
+       style={{ position: 'relative' }}
+      >
+        {/*  men tres puntos */}
+        <button
+          onClick={() => navigate('/home')}
+          style={{ position: 'absolute', top: 16, right: 16, background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}
+          aria-label="Home"
+        >
+          ⋮
+          <ul style=
+           {{
+            position: 'absolute', 
+            top: '1.5rem', right: 0, 
+            listStyle: 'none', 
+            margin: 0, 
+            padding: '0.5rem', 
+            background: '#fff', 
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+           }}
+          >
+            <li>
+              <button onClick={() => navigate('/home')}>Ir a Home</button>
+            </li>
+          </ul>
+        </button>
+
         <h1 id="dashboard-title" className="text-2xl font-semibold mb-6">Dashboard de Residuos</h1>
         {/*pa que se vea el spin er*/}
         {loading && <Spincarga />}
@@ -163,8 +208,24 @@ const Dashboard = () =>
               )}
             </section>
   
-            {/* g de barras */}
-            <BarChart data={data} />
+            <section aria-label="gráfico de residuos">
+              
+  
+              {/* g de barras */}
+              <h4 className="text-lg font-semibold mb-4">Residuos por Departamento</h4>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="department" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="waste_kg" fill="#3b82f6" />
+                </BarChart>
+              </ResponsiveContainer>
+  
+  
+  
+              </section>
           </>
         )}
       </main>

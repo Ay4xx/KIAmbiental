@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import React from 'react';
+import React, { useState } from 'react';
 import Boxes from './boxes';
 
 function Home() {
+
+  //para ir a dash
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+
   return (
     <div className="Home" id="home">
       
@@ -15,6 +21,20 @@ function Home() {
           <h2>Opciones</h2>
           <h2>Lenguaje</h2>
         </div>
+        {/*para ir a dash*/}
+        <button
+          onClick={() => setOpen(!open)}
+          style={{ position: 'absolute', top: 16, right: 16, background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}
+          aria-label="Menu"
+        >
+          ⋮
+        </button>
+        {open && (
+          <ul style={{ position: 'absolute', top: '2.5rem', right: 16, background: '#fff', padding: '0.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.2)', listStyle: 'none' }}>
+            <li><button onClick={() => { navigate('/dashboard'); setOpen(false); }}>Ir al Dashboard</button></li>
+          </ul>
+        )}
+
       </header>
       <div id="home-content">
         <div className="intro" id="intro">
@@ -73,6 +93,8 @@ function Home() {
         <p>Desarrollado por: Grupo 4</p>
         <p>Contacto:</p>
       </div>
+
+
 
     </div>
   )
