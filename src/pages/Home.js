@@ -7,8 +7,14 @@ function Home() {
 
   //para ir a dash
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  //para que se abra y cierre
+  // const [open, setOpen] = useState(false);
 
+  const [menuOpen, setMenuOpen] = useState(false); 
+  const handleToggleMenu = () => {
+    setMenuOpen(!menuOpen); // abre/cierra menu
+  };
+ 
 
   return (
     <div className="Home" id="home">
@@ -22,7 +28,7 @@ function Home() {
           <h2>Lenguaje</h2>
         </div>
         {/*para ir a dash*/}
-        <button
+        {/* <button
           onClick={() => setOpen(!open)}
           style={{ position: 'absolute', top: 16, right: 16, background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}
           aria-label="Menu"
@@ -33,7 +39,29 @@ function Home() {
           <ul style={{ position: 'absolute', top: '2.5rem', right: 16, background: '#fff', padding: '0.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.2)', listStyle: 'none' }}>
             <li><button onClick={() => { navigate('/dashboard'); setOpen(false); }}>Ir al Dashboard</button></li>
           </ul>
-        )}
+        )} */}
+        {/*manejare estilos en el css*/}
+      <button 
+        className="menu-button" 
+        onClick={handleToggleMenu} 
+      >
+        ⋮ 
+      </button>
+
+      {/*  si menuOpen es true, se muestra */}
+      {menuOpen && (
+        <ul className="dropdown-menu">
+          <li onClick={() => { navigate('/dashboard'); setMenuOpen(false); }}>
+            Dashboard
+          </li>
+          <li onClick={() => { navigate('/registro'); setMenuOpen(false); }}>
+            Registro
+          </li>
+          {/* por si queremos agregar mas cosas */}
+        </ul>
+      )}
+
+
 
       </header>
       <div id="home-content">
