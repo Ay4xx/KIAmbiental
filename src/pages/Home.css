@@ -32,44 +32,57 @@
     font-weight: normal;
 }
 
-#home {
-    background-color: #05141f;
-    height: auto;
-}
+
 
 #header {
     background-color: #ffffff;
-    padding: 0px;
     display: flex; /* Enable flexbox */
-    justify-content: space-between; /* Push elements to opposite sides */
     align-items: center; /* Align items vertically */
-    height: 60px;;
-    font-family: 'Formula1-Regular', sans-serif;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 60px;
+    width: 100%;
+    gap: 0px;
+}
+
+#header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
 }
 
 #intro {
     color: #05141f
 }
 
-.KIAphoto {
+#header .KIAphoto {
+    display: inline-block;
+    align-items: center;
     width: 10%;
-    height: 100%;
-    display: inline;
+    height: auto;
+    margin: auto;
 }
 
 #header h1 {
     display: inline-block;
+    font-size: 1.5rem;
+    margin: 0;
+    font-family: 'Formula1-Bold', sans-serif;
+    margin-bottom: auto;
 }
 
 #header h2 {
-    display: inline-block;
-    margin-left: 5px; /* Add space between h1 and h2 */
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Formula1-Regular', sans-serif;
 }
 
 #header .h2-group {
-    display: flex;
-    margin-left: auto; /* Push all h2 elements to the right */
-    gap: 5px;
+    display: flex; /* Enable Flexbox for the group */
+    margin-left: auto; /* Push the group to the far right */
+    gap: 10px; /* Add spacing between the <h2> elements */
+    align-items: center; /* Align the <h2> elements vertically */
 }
 
 h1 {
@@ -81,71 +94,7 @@ p {
     font-size: 14px;
 }
 
-.card-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    justify-content: center;
-}
-
-.card-group h5 {
-    color: #05141f;
-}
-
-.card-group p {
-    color: #05141f;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 16px;  
-}
-.card-body {
-    padding-left: 0;
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 4px;
-    height: auto;
-}
-
-.card-title {
-    display: inline-flex;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 20px;
-    font-family: 'Formula1-Bold', sans-serif;
-}
-
-.card-text {
-    display: inline-flex;
-    font-size: 14px;
-}
-
-.card a {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #28666e;
-    font-family: 'Formula1-Regular', sans-serif;
-  }
-  
-.card a:focus {
-    outline: 1px dotted #28666e;
-  }
-  
-.card a .icon {
-    min-width: 24px;
-    width: 24px;
-    height: 24px;
-    margin-left: 5px;
-    transform: translateX(var(--link-icon-translate));
-    opacity: var(--link-icon-opacity);
-    transition: all 0.3s;
-  }
-
+/*
 .footer {
     background-color: #05141f;
     padding: 10px;
@@ -163,18 +112,35 @@ p {
     font-family: 'Formula1-Regular', sans-serif;
     font-size: 20px;
 }
+*/
 
 .boxes {
     padding-top: 20px;
 }
 
+#home {
+    background-color: #05141f;
+    height: 100vh; /* Full height of the viewport */
+    width: 100%; /* Full width of the viewport */
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: flex-start; /* Align content at the top */
+    align-items: stretch; /* Stretch child elements to fill the width */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default paddings */
+    overflow: hidden; /* Prevent scrollbars if not needed */
+}
+
+
 #home-content {
     background-image: url("/public/plantakia.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: auto;
-    margin: 0px;
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    width: 100%; /* Full width of the container */
+    flex: 1; /* Allow this section to grow and fill available space */
+    display: flex; /* Enable Flexbox for internal alignment */
+    flex-direction: column; /* Stack internal elements vertically */
+    align-items: center; /* Center content horizontally */
     padding: 20px;
 }

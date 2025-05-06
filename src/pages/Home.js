@@ -21,13 +21,14 @@ function Home() {
     <div className="Home" id="home">
       
       <header className='header' id="header">
-        <img className="KIAphoto" src="./LOGO KIA fondo transparente.png"></img>
-        <h1>KIAmbiental</h1>
+        <div id="header-title">
+        <img className="KIAphoto" id="KIAphoto" src="./LOGO KIA fondo transparente.png"></img>
+        <h1>mbiental</h1>
+        </div>
         <div id="h2-group">
           <h2>Usuario</h2>
           <h2>Opciones</h2>
           <h2>Lenguaje</h2>
-        </div>
         {/*para ir a dash*/}
         {/* <button
           onClick={() => setOpen(!open)}
@@ -48,7 +49,7 @@ function Home() {
       >
         ⋮ 
       </button>
-
+      </div>
       {/*  si menuOpen es true, se muestra */}
       {menuOpen && (
         <ul className="dropdown-menu">
@@ -70,24 +71,24 @@ function Home() {
           <h1>Bienvenido a la página de inicio</h1>
         </div>
 
-        <div>
+        <div class="tarjetas">
           <ActionAreaCard />
         </div>
 
-      </div>
-{/*
+        {/*
         <div class="boxes">
           <Boxes />
         </div>
 
-      <div class="footer">
-        <h2>Footer</h2>
-        <p>Derechos reservados KIAmbiental 2023</p>
-        <p>Desarrollado por: Grupo 4</p>
-        <p>Contacto:</p>
+        <div class="footer">
+          <h2>Footer</h2>
+          <p>Derechos reservados KIAmbiental 2023</p>
+          <p>Desarrollado por: Grupo 4</p>
+          <p>Contacto:</p>
+        </div>
+        */}
       </div>
 
-*/}
 
     </div>
   )
