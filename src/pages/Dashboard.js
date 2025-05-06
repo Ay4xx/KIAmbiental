@@ -2,6 +2,7 @@
 //trabajare hooks, datos, el navigate para los ruteo
 
 import React, { useEffect, useState } from 'react';
+import './Dashboard.css';
 import PropTypes from 'prop-types';
 import { prueba } from '../pruebas/prueba';
 import { useNavigate } from 'react-router-dom';

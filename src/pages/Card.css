@@ -1,40 +1,40 @@
-.card {
-    background: #fff;                             /* fondo */
-    border: 1px solid #ccc;                       /* borde */
-    border-radius: 8px;                           /* esquinas */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);         /* sombra */
-    overflow: hidden;
-    width: 260px;                                  /* ancho */
-    display: flex;
-    flex-direction: column;                       /* Justificacion text-img */
-    margin: 8px;
-    font-family: 'KiaSignatureRegular', sans-serif;
-  }
-  
-  .card-image {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;                             /* la recortamos buscando cubrir */
-  }
-  
-  .card-content {
-    padding: 12px;                                 /* espacio */
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .card-title {
-    margin: 0 0 8px;
-    font-family: 'Formula1-Bold', sans-serif;
-    font-size: 1.1rem;
-    color: #05141f;
-  }
-  
-  .card-text {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #333;
-    flex-grow: 1;
-  }
-  
+@font-face {
+  font-family: 'Formula1-Regular';
+  src: url("/public/Formula1-Regular.otf") format('opentype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Formula1-Bold';
+  src: url("/public/Formula1-Bold.otf") format('opentype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Formula1-Wide';
+  src: url("/public/Formula1-Wide.otf") format('opentype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'KiaSignatureBold';
+  src: url("/public/KiaSignatureOTFBold.otf") format('opentype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'KiaSignatureRegular';
+  src: url("/public/KiaSignatureOTFRegular.otf") format('opentype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'KiaSignatureLight';
+  src: url("/public/KiaSignatureOTFLight.otf") format('opentype');
+  font-weight: normal;
+}
+
+#card-container {
+  display: flex;
+  gap: 16px; /* Espacio entre tarjetas */
+  justify-content: space-evenly; /* Centra horizontalmente */
+  flex-wrap: wrap; /* Opcional: permite que se ajusten si no caben en pantalla */
+}
