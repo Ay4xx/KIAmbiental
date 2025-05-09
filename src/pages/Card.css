@@ -37,4 +37,5 @@
   gap: 16px; /* Espacio entre tarjetas */
   justify-content: space-evenly; /* Centra horizontalmente */
   flex-wrap: wrap; /* Opcional: permite que se ajusten si no caben en pantalla */
+  background-color: transparent;
 }

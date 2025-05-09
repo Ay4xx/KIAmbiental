@@ -119,7 +119,7 @@ p {
 }
 
 #home {
-    background-color: #05141f;
+    background-color: transparent;
     height: 100vh; /* Full height of the viewport */
     width: 100%; /* Full width of the viewport */
     display: flex; /* Enable Flexbox */
@@ -133,14 +133,31 @@ p {
 
 
 #home-content {
-    background-image: url("/public/plantakia.jpg");
-    background-size: cover; /* Ensure the image covers the entire container */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-color: transparent;
+    position: relative; /* Make this container the reference for absolute positioning */
     width: 100%; /* Full width of the container */
     flex: 1; /* Allow this section to grow and fill available space */
     display: flex; /* Enable Flexbox for internal alignment */
     flex-direction: column; /* Stack internal elements vertically */
     align-items: center; /* Center content horizontally */
     padding: 20px;
+    overflow: hidden; /* Prevent scrollbars if the slideshow overflows */
+    padding: 0%;
+}
+
+.slideshow-background {
+    position: absolute; /* Position the slideshow as a background */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the entire width of the container */
+    height: 100%; /* Cover the entire height of the container */
+    z-index: -1; /* Place it behind other content */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.tarjetas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the cards */
 }

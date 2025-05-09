@@ -3,6 +3,7 @@ import "./Home.css";
 import React, { useState } from 'react';
 import Boxes from './boxes';
 import ActionAreaCard from './Card.js';
+import SlideshowBackground from './slideshow.js';
 
 function Home() {
 
@@ -63,18 +64,21 @@ function Home() {
         </ul>
       )}
 
-
-
       </header>
+
       <div id="home-content">
+        <SlideshowBackground />
+
+        {/*
         <div className="intro" id="intro">
           <h1>Bienvenido a la página de inicio</h1>
         </div>
+        */}
 
         <div class="tarjetas">
           <ActionAreaCard />
         </div>
-
+          
         {/*
         <div class="boxes">
           <Boxes />
