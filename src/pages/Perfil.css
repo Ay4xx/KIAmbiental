@@ -32,7 +32,6 @@
     font-weight: normal;
 }
 
-
 /*header*/
 #header {
     background-color: #05141f;
@@ -115,82 +114,4 @@
 
 #header-title img:hover {
     color: #7e8081; /* Change color on hover */
-}
-
-/* General styles */
-h1 {
-    font-family: 'Formula1-Bold', sans-serif;
-}
-
-p {
-    font-family: 'KiaSignatureRegular', sans-serif;
-    font-size: 14px;
-}
-
-/*
-.footer {
-    background-color: #05141f;
-    padding: 10px;
-    text-align: center;
-    font-family: 'Formula1-Regular', sans-serif;
-    font-size: 14px;
-}
-
-.footer p {
-    color: #ffffff
-}
-
-.footer h2 {
-    color: #ffffff;
-    font-family: 'Formula1-Regular', sans-serif;
-    font-size: 20px;
-}
-*/
-
-.boxes {
-    padding-top: 20px;
-}
-
-#home {
-    background-color: transparent;
-    height: 100vh; /* Full height of the viewport */
-    width: 100%; /* Full width of the viewport */
-    display: flex; /* Enable Flexbox */
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: flex-start; /* Align content at the top */
-    align-items: stretch; /* Stretch child elements to fill the width */
-    margin: 0; /* Remove default margins */
-    padding: 0; /* Remove default paddings */
-    overflow: hidden; /* Prevent scrollbars if not needed */
-}
-
-
-#home-content {
-    background-color: transparent;
-    position: relative; /* Make this container the reference for absolute positioning */
-    width: 100%; /* Full width of the container */
-    flex: 1; /* Allow this section to grow and fill available space */
-    display: flex; /* Enable Flexbox for internal alignment */
-    flex-direction: column; /* Stack internal elements vertically */
-    align-items: center; /* Center content horizontally */
-    padding: 20px;
-    overflow: hidden; /* Prevent scrollbars if the slideshow overflows */
-    padding: 0%;
-}
-
-.slideshow-background {
-    position: absolute; /* Position the slideshow as a background */
-    top: 0;
-    left: 0;
-    width: 100%; /* Cover the entire width of the container */
-    height: 100%; /* Cover the entire height of the container */
-    z-index: -1; /* Place it behind other content */
-    overflow: hidden; /* Prevent overflow */
-}
-
-.tarjetas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the cards */
 }

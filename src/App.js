@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Perfil from "./pages/Perfil";
 
 import { useState } from "react";
 import './App.css';
@@ -37,7 +38,14 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
-        
+        <Route
+          path="/perfil"
+          element={
+            autenticado
+              ? <Perfil setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

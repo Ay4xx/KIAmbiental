@@ -22,12 +22,12 @@ function Home() {
     <div className="Home" id="home">
       
       <header className='header' id="header">
-        <div id="header-title">
-        <img className="KIAphoto" id="KIAphoto" src="./LOGO KIA fondo transparente.png"></img>
+        <div id="header-title" onClick={() => navigate('/home')}>
+        <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
         <h1>mbiental</h1>
         </div>
         <div id="h2-group">
-          <h2>Usuario</h2>
+          <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
           <h2>Opciones</h2>
           <h2>Lenguaje</h2>
         {/*para ir a dash*/}
@@ -44,12 +44,17 @@ function Home() {
           </ul>
         )} */}
         {/*manejare estilos en el css*/}
+
+        {/* <button
       <button 
         className="menu-button" 
         onClick={handleToggleMenu} 
       >
         ⋮ 
       </button>
+
+      */}
+
       </div>
       {/*  si menuOpen es true, se muestra */}
       {menuOpen && (
