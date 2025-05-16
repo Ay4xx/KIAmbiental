@@ -7,12 +7,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secreto123';
 exports.login = async (req, res) => {
   const { email, contraseña } = req.body;
   const usuario = await Usuario.findOne({ where: { email } });
-// buscar usuario
-  if (!usuario) return res.status(401).send('No encontrado');
-//ver contrasena
+
+  if (!usuario) return res.status(401).send('Usuario no encontrado');
+
   const esValido = await bcrypt.compare(contraseña, usuario.contraseña);
-  if (!esValido) return res.status(401).send('datos incorrectos c');
-//firmar token
+  if (!esValido) return res.status(401).send('Contraseña incorrecta');
+
   const token = jwt.sign({ id: usuario.id, email: usuario.email }, JWT_SECRET, {
     expiresIn: '1h'
   });
@@ -27,15 +27,13 @@ exports.crearUsuario = async (req, res) => {
     try {
       // Validar datos
       if (!nombre || !email || !contraseña) {
-        return res.status(400).json({ error: ' hace falta info' });
+        return res.status(400).json({ error: 'Faltan campos requeridos' });
       }
   
       // Verificar si ya existe
-
-      //await porque es operacion de db
       const existe = await Usuario.findOne({ where: { email } });
       if (existe) {
-        return res.status(409).json({ error: 'ese correo ya se dio de alta' });
+        return res.status(409).json({ error: 'El email ya está registrado' });
       }
   
       // Encriptar contraseña

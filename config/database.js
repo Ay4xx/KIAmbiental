@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
       rejectUnauthorized: false //  ambientes de prueba
     }
   },
-  logging: false //desactiva logs de SQL
+  logging: false
 });
 
 module.exports = sequelize;
