@@ -47,7 +47,7 @@ function Perfil() {
         </CardContent>
       </Card>
     </div>
-
+</div>
     );
 }
 
