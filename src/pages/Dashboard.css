@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Formula1-Regular';
+    src: url("/public/Formula1-Regular.otf") format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Formula1-Bold';
+    src: url("/public/Formula1-Bold.otf") format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Formula1-Wide';
+    src: url("/public/Formula1-Wide.otf") format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'KiaSignatureBold';
+    src: url("/public/KiaSignatureOTFBold.otf") format('opentype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'KiaSignatureRegular';
+    src: url("/public/KiaSignatureOTFRegular.otf") format('opentype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'KiaSignatureLight';
+    src: url("/public/KiaSignatureOTFLight.otf") format('opentype');
+    font-weight: normal;
+}
