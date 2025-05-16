@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import React, { useState } from 'react';
+import Boxes from './boxes';
 import ActionAreaCard from './Card.js';
 import SlideshowBackground from './slideshow.js';
 
