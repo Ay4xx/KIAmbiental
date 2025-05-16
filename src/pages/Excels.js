@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
+import { useNavigate } from "react-router-dom";
 
 function Excels() {
   const [data, setData] = useState([]);
@@ -19,9 +20,29 @@ function Excels() {
     };
     reader.readAsBinaryString(file);
   };
+  
+  const navigate = useNavigate();
 
   return (
-    <div style={{ padding: 32 }}>
+    <div style={{ padding: 0, overflowX: 'hidden' }}>
+            <header className='header' id="header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        width: '100%',
+      }}>
+        <div id="header-title" onClick={() => navigate('/home')}>
+        <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
+        <h1>mbiental</h1>
+        </div>
+        <div id="h2-group"
+        style={{marginRight: 24, display: 'flex', gap: '32px'}}>
+          <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
+          <h2>Opciones</h2>
+          <h2>Lenguaje</h2>
+        </div>
+      </header>
       <h2>Display Excel File</h2>
       <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
       <div style={{ marginTop: 24, overflowX: "auto" }}>

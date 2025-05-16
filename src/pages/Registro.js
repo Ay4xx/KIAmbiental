@@ -22,7 +22,8 @@ const Registro = () => {
   };
 
   return (
-    <div className="pagina-registro">
+    <div className="pagina-registro"
+    style={{overflowX: 'hidden'}}>
       <header className='header' id="header"
       style={{
         position: 'sticky',

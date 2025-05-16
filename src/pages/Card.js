@@ -13,10 +13,19 @@ function ActionAreaCard() {
   
 
   return (
-  <div id="card-container">
+  <div id="card-container"
+  style={{
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '32px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+  }}>
     <Card   
     sx={{
-    maxWidth: 345,
+    maxWidth: 420,
+    width: '100%',
     transition: 'background-color 0.3s ease',
     '&:hover': {
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -50,7 +59,8 @@ function ActionAreaCard() {
 
     <Card 
     sx={{
-      maxWidth: 345,
+      maxWidth: 420,
+      width: '100%',
       transition: 'background-color 0.3s ease',
       '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -85,7 +95,8 @@ function ActionAreaCard() {
 
     <Card 
     sx={{
-      maxWidth: 345,
+      maxWidth: 420,
+      width: '100%',
       transition: 'background-color 0.3s ease',
       '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -113,6 +124,42 @@ function ActionAreaCard() {
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Haz click aqui para ver las tablas
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+
+    <Card 
+    sx={{
+      maxWidth: 420,
+      width: '100%',
+      transition: 'background-color 0.3s ease',
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        '& .card-media': {
+          opacity: 0.8, // Darken the image
+        },
+      },
+    }}
+    onClick={() => { 
+      navigate('/descargar');
+   }}
+>
+      <CardActionArea>
+        <CardMedia
+          className="card-media"
+          sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
+          component="img"
+          height="140"
+          image="/kiacar.png"
+          alt="dashboard"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Excel
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Haz click aqui para ver descargar Excel
           </Typography>
         </CardContent>
       </CardActionArea>

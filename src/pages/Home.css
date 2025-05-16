@@ -193,4 +193,8 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Center the cards */
+    width: 80vw;
+    height: 60vh;
+    justify-content: center;
+    align-items: center;
 }
