@@ -82,6 +82,41 @@ function ActionAreaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
+
+    <Card 
+    sx={{
+      maxWidth: 345,
+      transition: 'background-color 0.3s ease',
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        '& .card-media': {
+          opacity: 0.8, // Darken the image
+        },
+      },
+    }}
+    onClick={() => { 
+      navigate('/tablas');
+   }}
+>
+      <CardActionArea>
+        <CardMedia
+          className="card-media"
+          sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
+          component="img"
+          height="140"
+          image="/kiacar.png"
+          alt="dashboard"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Tablas
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Haz click aqui para ver las tablas
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   </div>
 
     

@@ -1,8 +1,11 @@
 // Registro.js
 import React, { useState } from "react";
-import "./App.css";
+import { useNavigate } from "react-router-dom";
 
 const Registro = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     correo: "",
@@ -20,8 +23,23 @@ const Registro = () => {
 
   return (
     <div className="pagina-registro">
-      <header className="encabezado-superior">
-        <h1>KIAmbiental</h1>
+      <header className='header' id="header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        width: '100%',
+      }}>
+        <div id="header-title" onClick={() => navigate('/home')}>
+        <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
+        <h1>mbiental</h1>
+        </div>
+        <div id="h2-group"
+        style={{marginRight: 24, display: 'flex', gap: '32px'}}>
+          <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
+          <h2>Opciones</h2>
+          <h2>Lenguaje</h2>
+        </div>
       </header>
 
       <div className="registro-container">

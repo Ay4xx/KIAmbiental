@@ -39,10 +39,6 @@ const SlideshowBackground = () => {
         ))}
       </Slide>
 
-      <div className="overlay-content">
-        <h1>Welcome</h1>
-        <p>This is an example of a slideshow background</p>
-      </div>
     </div>
   );
 };

@@ -20,55 +20,24 @@ function Home() {
   return (
     <div className="Home" id="home">
       
-      <header className='header' id="header">
+      <header className='header' id="header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        width: '100%',
+      }}>
         <div id="header-title" onClick={() => navigate('/home')}>
         <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
         <h1>mbiental</h1>
         </div>
-        <div id="h2-group">
+        <div id="h2-group"
+        style={{marginRight: 24, display: 'flex', gap: '32px'}}>
           <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
           <h2>Opciones</h2>
           <h2>Lenguaje</h2>
-        {/*para ir a dash*/}
-        {/* <button
-          onClick={() => setOpen(!open)}
-          style={{ position: 'absolute', top: 16, right: 16, background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}
-          aria-label="Menu"
-        >
-          ⋮
-        </button>
-        {open && (
-          <ul style={{ position: 'absolute', top: '2.5rem', right: 16, background: '#fff', padding: '0.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.2)', listStyle: 'none' }}>
-            <li><button onClick={() => { navigate('/dashboard'); setOpen(false); }}>Ir al Dashboard</button></li>
-          </ul>
-        )} */}
-        {/*manejare estilos en el css*/}
-
-        {/* <button
-      <button 
-        className="menu-button" 
-        onClick={handleToggleMenu} 
-      >
-        ⋮ 
-      </button>
-
-      */}
-
-      </div>
-      {/*  si menuOpen es true, se muestra */}
-      {menuOpen && (
-        <ul className="dropdown-menu">
-          <li onClick={() => { navigate('/dashboard'); setMenuOpen(false); }}>
-            Dashboard
-          </li>
-          <li onClick={() => { navigate('/registro'); setMenuOpen(false); }}>
-            Registro
-          </li>
-          {/* por si queremos agregar mas cosas */}
-        </ul>
-      )}
-
-      </header>
+        </div>
+        </header>
 
       <div id="home-content">
         <SlideshowBackground />

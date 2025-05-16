@@ -4,9 +4,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Perfil from "./pages/Perfil";
-
+import Registro from "./pages/Registro";
 import { useState } from "react";
 import './App.css';
+import Excels from "./pages/Excels";
+import Tables from "./pages/tables";
 
 // Componente principal de la aplicación
 function App() {
@@ -43,6 +45,30 @@ function App() {
           element={
             autenticado
               ? <Perfil setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/registro"
+          element={
+            autenticado
+              ? <Registro setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/descargar"
+          element={
+            autenticado
+              ? <Excels setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/tablas"
+          element={
+            autenticado
+              ? <Tables setAutenticado={setAutenticado} />
               : <Navigate to="/login" replace />
           }
         />
