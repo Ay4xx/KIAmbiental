@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
-
-import Card from '@mui/material/Card';
-
 import CantidadXarea from "../graficas/cantidadXarea.js";
 import KgXano from "../graficas/kgXano.js";
+import WasteTypeByArea from "../graficas/waste_type_by_area.js";
+import TransportCoBYwasteType from "../graficas/transportCoBYwasteType.js";
 
 import React, {useState} from 'react';
 
@@ -17,6 +15,8 @@ function Dashboard() {
   const graphs = [
     { name: "Cantidad por Área", component: <CantidadXarea /> },
     { name: "Kg X Año", component: <KgXano /> },
+    { name: "Tipo de residuo por área", component: <WasteTypeByArea /> },
+    { name: "Compañia de transporte por tipo de residuo", component: <TransportCoBYwasteType /> },
   ];
   
   const filteredGraphs = graphs.filter(g =>
@@ -34,7 +34,7 @@ function Dashboard() {
         width: '100%',
       }}>
         <div id="header-title" onClick={() => navigate('/home')}>
-        <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
+        <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png" alt="KIA logo"></img>
         <h1>mbiental</h1>
         </div>
         <div id="h2-group"
