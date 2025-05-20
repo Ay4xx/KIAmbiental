@@ -7,10 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
+import TextField from '@mui/material/TextField'; // <-- Import
 
 // Column titles for the 24 columns
 const columnTitles = [
@@ -44,12 +43,27 @@ const fetchTableData = async () => {
 
 function Tables() {
   const [data, setData] = useState([]);
+  const [filters, setFilters] = useState(Array(columnTitles.length).fill(""));
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchTableData().then(setData);
   }, []);
+
+  // Filter logic
+  const filteredData = data.filter(row =>
+    row.every((cell, idx) =>
+      filters[idx] === "" ||
+      String(cell).toLowerCase().includes(filters[idx].toLowerCase())
+    )
+  );
+
+  const handleFilterChange = (idx, value) => {
+    const newFilters = [...filters];
+    newFilters[idx] = value;
+    setFilters(newFilters);
+  };
 
   return (
     <div style={{ padding: 0, overflowX: 'hidden' }}>
@@ -61,7 +75,7 @@ function Tables() {
           width: '100%',
         }}>
         <div id="header-title" onClick={() => navigate('/home')}>
-          <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png"></img>
+          <img className="KIAphoto" id="KIAphoto" src="./new-kia-logo-white.png" alt="KIA logo"></img>
           <h1>mbiental</h1>
         </div>
         <div id="h2-group"
@@ -80,12 +94,22 @@ function Tables() {
                 <TableHead>
                   <TableRow>
                     {columnTitles.map((title, idx) => (
-                      <TableCell key={idx} sx={{ fontWeight: 'bold', background: '#f5f5f5' }}>{title}</TableCell>
+                      <TableCell key={idx} sx={{ fontWeight: 'bold', background: '#f5f5f5' }}>
+                        {title}
+                        <TextField
+                          variant="standard"
+                          value={filters[idx]}
+                          onChange={e => handleFilterChange(idx, e.target.value)}
+                          placeholder="Filtrar"
+                          size="small"
+                          sx={{ mt: 1, width: "100%" }}
+                        />
+                      </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.map((row, i) => (
+                  {filteredData.map((row, i) => (
                     <TableRow key={i} sx={{ backgroundColor: i % 2 === 0 ? '#fafafa' : '#fff' }}>
                       {row.map((cell, j) => (
                         <TableCell key={j}>{cell}</TableCell>

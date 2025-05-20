@@ -4,6 +4,7 @@ import CantidadXarea from "../graficas/cantidadXarea.js";
 import KgXano from "../graficas/kgXano.js";
 import WasteTypeByArea from "../graficas/waste_type_by_area.js";
 import TransportCoBYwasteType from "../graficas/transportCoBYwasteType.js";
+import KPIgraph from "../graficas/KPIgraphs.js";
 
 import React, {useState} from 'react';
 
@@ -13,6 +14,7 @@ function Dashboard() {
   const [search, setSearch] = useState("");
 
   const graphs = [
+    { name: "KPI", component: <KPIgraph /> },
     { name: "Cantidad por Área", component: <CantidadXarea /> },
     { name: "Kg X Año", component: <KgXano /> },
     { name: "Tipo de residuo por área", component: <WasteTypeByArea /> },
