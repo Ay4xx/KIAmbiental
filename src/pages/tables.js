@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField'; // <-- Import
+import Box from '@mui/material/Box';
 
 // Column titles for the 24 columns
 const columnTitles = [
@@ -66,7 +67,8 @@ function Tables() {
   };
 
   return (
-    <div style={{ padding: 0, overflowX: 'hidden' }}>
+    <Box sx={{ background: "#f4f6fa", minHeight: "100vh", p: 0 }}
+    style={{ overflowX: 'hidden' }}>
       <header className='header' id="header"
         style={{
           position: 'sticky',
@@ -85,24 +87,43 @@ function Tables() {
           <h2>Lenguaje</h2>
         </div>
       </header>
-      <Card sx={{ margin: 4, padding: 2, boxShadow: 3 }}>
+      <Card sx={{ margin: 4, padding: 2, boxShadow: 6, borderRadius: 4 }}>
         <CardContent>
-          <h2 style={{ textAlign: 'center', marginBottom: 24 }}>Database Table View (24 columns)</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: 24, color: "#05141f" }}>
+            Database Table View (24 columns)
+          </h2>
           <div style={{ overflowX: "auto", padding: 24 }}>
             <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
               <Table stickyHeader>
                 <TableHead>
                   <TableRow>
                     {columnTitles.map((title, idx) => (
-                      <TableCell key={idx} sx={{ fontWeight: 'bold', background: '#f5f5f5' }}>
-                        {title}
+                      <TableCell
+                        key={idx}
+                        sx={{
+                          fontWeight: 'bold',
+                          background: '#05141f',
+                          color: '#fff',
+                          borderRight: '1px solid #e0e0e0',
+                          position: 'relative'
+                        }}
+                      >
+                        <span style={{ display: "block", marginBottom: 8 }}>{title}</span>
                         <TextField
                           variant="standard"
                           value={filters[idx]}
                           onChange={e => handleFilterChange(idx, e.target.value)}
                           placeholder="Filtrar"
                           size="small"
-                          sx={{ mt: 1, width: "100%" }}
+                          sx={{
+                            background: "#fff",
+                            borderRadius: 1,
+                            width: "100%",
+                            input: { fontSize: 13, p: 0.5 }
+                          }}
+                          InputProps={{
+                            disableUnderline: true,
+                          }}
                         />
                       </TableCell>
                     ))}
@@ -110,7 +131,13 @@ function Tables() {
                 </TableHead>
                 <TableBody>
                   {filteredData.map((row, i) => (
-                    <TableRow key={i} sx={{ backgroundColor: i % 2 === 0 ? '#fafafa' : '#fff' }}>
+                    <TableRow
+                      key={i}
+                      sx={{
+                        backgroundColor: i % 2 === 0 ? '#f9f9fb' : '#f4f6fa',
+                        '&:hover': { backgroundColor: '#e3eafc' }
+                      }}
+                    >
                       {row.map((cell, j) => (
                         <TableCell key={j}>{cell}</TableCell>
                       ))}
@@ -122,7 +149,7 @@ function Tables() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </Box>
   );
 }
 
