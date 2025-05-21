@@ -51,7 +51,7 @@ function parseExcelDate(value) {
       const excelHeaders = jsonData[3] || [];
       setHeaders(excelHeaders);
 
-      // Los datos empiezan en la cuarta línea (índice 3)
+      // Los datos empiezan en la quinta línea (índice 4)
       const filteredData = jsonData.slice(4).map(row => {
         row[1] = parseExcelDate(row[1]);
         return row;

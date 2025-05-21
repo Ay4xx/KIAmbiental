@@ -19,17 +19,27 @@ const SlideshowBackground = () => {
     "21730_Kia_PBV_Concept.jpg",
   ];
 
+  // Shuffle images array
+  const shuffledImages = React.useMemo(() => {
+    const arr = [...images];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, []);
+
   return (
     <div className="slideshow-background">
       <Slide
-        duration={7000}
-        transitionDuration={1500}
+        duration={5000}
+        transitionDuration={1250}
         infinite
         indicators={false}
         arrows={false}
         autoplay
       >
-        {images.map((image, index) => (
+        {shuffledImages.map((image, index) => (
           <div className="each-slide-bg" key={index}>
             <div
               className="slide-bg"
@@ -38,7 +48,6 @@ const SlideshowBackground = () => {
           </div>
         ))}
       </Slide>
-
     </div>
   );
 };
