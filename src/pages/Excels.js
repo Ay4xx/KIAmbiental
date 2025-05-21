@@ -46,7 +46,7 @@ function parseExcelDate(value) {
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1, defval: "", raw: false });
-
+      console.log ("json dta",jsonData);
       // Usa la cuarta línea como encabezados
       const excelHeaders = jsonData[3] || [];
       setHeaders(excelHeaders);
@@ -63,6 +63,7 @@ function parseExcelDate(value) {
 
   // Function to send data to backend
   const uploadToDatabase = async (excelData) => {
+    console.log ("otro", JSON.stringify({ data: excelData }));
     try {
       const response = await fetch("/api/excel-upload", {
         method: "POST",

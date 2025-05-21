@@ -1,6 +1,7 @@
 import { useState } from "react";
 // Hook para redirigir a otra ruta
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login({ setAutenticado }) {
 
@@ -12,17 +13,28 @@ function Login({ setAutenticado }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const manejarLogin = () => {
+  const manejarLogin = async (e) => {
     // Simulacion de credenciales validas
-    const usuario = "admin";
-    const contrasena = "1234";
-
-    if (username === usuario && password === contrasena) {
+    // const usuario = "admin";
+    // const contrasena = "1234";
+    e.preventDefault();
+    
+    try{
+      const res = await axios.post('http://localhost:3001/api/login', {
+        username,
+        password
+      });
+      const { token } = res.data;
+      localStorage.setItem("token", token);
       setAutenticado(true);
-      navigate("/home")
-    } else {
-      setError("Usuario o contraseña incorrectos");
+      navigate("/home");
+      
+    }catch (err) {
+    console.error(err);
+    setError('Credenciales inválidas');
     }
+
+    
   }
 
   return (
