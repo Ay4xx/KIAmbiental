@@ -65,10 +65,12 @@ function parseExcelDate(value) {
   const uploadToDatabase = async (excelData) => {
     console.log ("otro", JSON.stringify({ data: excelData }));
     try {
-      const response = await fetch("/api/excel-upload", {
+      const token = localStorage.getItem('token');
+      const response = await fetch("http://localhost:3001/api/excel-upload", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}` 
         },
         body: JSON.stringify({ data: excelData })
       });
