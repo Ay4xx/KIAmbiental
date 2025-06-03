@@ -1,14 +1,18 @@
 import { useState } from "react";
-// Hook para redirigir a otra ruta
+//  para redirigir a otra ruta
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+// para i18n
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 function Login({ setAutenticado }) {
 
 // Hook de navegación
   const navigate = useNavigate();
+  // hhook idioma
+  const { t, i18n } = useTranslation();
 
-  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +20,7 @@ function Login({ setAutenticado }) {
   const manejarLogin = async (e) => {
     // Simulacion de credenciales validas
     // const usuario = "admin";
-    // const contrasena = "1234";
+    // const contrasena = "1234";  
     e.preventDefault();
     
     try{
@@ -31,7 +35,7 @@ function Login({ setAutenticado }) {
       
     }catch (err) {
     console.error(err);
-    setError('Credenciales inválidas');
+    setError(t('login.error')); //asi es el uso del translter con las claves
     }
 
     
@@ -46,9 +50,12 @@ function Login({ setAutenticado }) {
       border: "1px solid #ddd", 
       borderRadius: 8 
       }}>
+    
+    <LanguageSelector/>
+
     <h2 
     style={{ textAlign: "center", marginBottom: "1rem"  }}>
-        Iniciar sesión
+        {t('login.title')}
     </h2>
 
     {error && (
@@ -70,7 +77,7 @@ function Login({ setAutenticado }) {
       {/* Campo Usuario */}
       <input
         type="text"
-        placeholder="Usuario"
+        placeholder={t('login.username')}
         value={username}
         onChange={e => setUsername(e.target.value)}
         style={{ 
@@ -82,7 +89,7 @@ function Login({ setAutenticado }) {
       {/* Campo Contraseña */}
       <input
         type="password"
-        placeholder="Contraseña"
+        placeholder={t('login.password')}
         value={password}
         onChange={e => setPassword(e.target.value)}
         style={{ 
@@ -103,7 +110,7 @@ function Login({ setAutenticado }) {
           cursor: "pointer"
         }}
       >
-        Iniciar sesión
+        {t('login.button')}
       </button>
     </div>
   </div>
