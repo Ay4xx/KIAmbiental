@@ -34,7 +34,6 @@ function Home() {
         <div id="h2-group"
         style={{marginRight: 24, display: 'flex', gap: '32px'}}>
           <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
-          <h2>Opciones</h2>
           <h2>Lenguaje</h2>
         </div>
         </header>

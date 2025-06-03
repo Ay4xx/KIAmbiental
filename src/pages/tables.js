@@ -11,10 +11,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField'; // <-- Import
 import Box from '@mui/material/Box';
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
-// Column titles for the 24 columns
+// Column titles for the 12 columns
 const columnTitles = [
-  "ID",
+  "id",
   "collection_date",
   "residue_type",
   "transporter_name",
@@ -28,18 +31,12 @@ const columnTitles = [
   "manifest_number",
 ];
 
-// Simulated fetch from database (replace with real API call)
+// Fetch real data from backend
 const fetchTableData = async () => {
-  // Generate 10 rows of 24 columns with sample data
-  const rows = [];
-  for (let i = 0; i < 10; i++) {
-    const row = [];
-    for (let j = 0; j < 12; j++) {
-      row.push(`R${i + 1}C${j + 1}`);
-    }
-    rows.push(row);
-  }
-  return rows;
+  const res = await fetch("http://localhost:3001/api/residuos");
+  const json = await res.json();
+  // Return as array of arrays for compatibility with your filter logic
+  return json.map(obj => columnTitles.map(col => obj[col]));
 };
 
 function Tables() {
@@ -47,9 +44,20 @@ function Tables() {
   const [filters, setFilters] = useState(Array(columnTitles.length).fill(""));
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetchTableData().then(setData);
+    fetch("http://localhost:3001/api/residuos", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        // Convierte cada objeto a un array alineado con columnTitles
+        const rows = json.map(obj => columnTitles.map(col => obj[col]));
+        setData(rows);
+      });
   }, []);
 
   // Filter logic
@@ -64,6 +72,72 @@ function Tables() {
     const newFilters = [...filters];
     newFilters[idx] = value;
     setFilters(newFilters);
+  };
+
+  // Filtra los datos por residue_type seleccionado
+  const [selectedResidueType, setSelectedResidueType] = useState("");
+
+  // Obtén los residue_type únicos para el select
+  const residueTypes = Array.from(new Set(data.map(row => row[2]))); // 2 es el índice de residue_type
+
+  // Datos filtrados para exportar
+  const exportData = filteredData.filter(row =>
+    selectedResidueType === "" || row[2] === selectedResidueType
+  );
+
+  // Exportar a Excel
+  const handleExportExcel = () => {
+    // Create worksheet with headers and data
+    const ws = XLSX.utils.aoa_to_sheet([columnTitles, ...exportData]);
+
+    // Set column widths for better readability
+    ws['!cols'] = columnTitles.map(() => ({ wch: 18 }));
+
+    // Bold and center headers (works in most Excel viewers)
+    columnTitles.forEach((col, idx) => {
+      const cell = XLSX.utils.encode_cell({ r: 0, c: idx });
+      if (!ws[cell]) ws[cell] = {};
+      ws[cell].s = {
+        font: { bold: true, color: { rgb: "FFFFFF" } },
+        alignment: { horizontal: "center" },
+        fill: { fgColor: { rgb: "1976D2" } }
+      };
+    });
+
+    // Add autofilter
+    ws['!autofilter'] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: 0, c: columnTitles.length - 1 } }) };
+
+    // Freeze the header row
+    ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+
+    // Create workbook and export
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Residuos");
+    XLSX.writeFile(wb, `residuos_${selectedResidueType || "todos"}.xlsx`);
+  };
+
+  // Exportar a PDF
+  const handleExportPDF = () => {
+    const doc = new jsPDF({ orientation: "landscape", unit: "pt", format: "A4" });
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text(`Residuos - ${selectedResidueType || "Todos"}`, 40, 40);
+
+    autoTable(doc, {
+      head: [columnTitles],
+      body: exportData,
+      startY: 60,
+      styles: { fontSize: 10, cellPadding: 4 },
+      headStyles: { fillColor: [25, 118, 210], textColor: 255, fontStyle: 'bold', halign: 'center' },
+      alternateRowStyles: { fillColor: [244, 246, 250] },
+      margin: { left: 40, right: 40 },
+      tableWidth: 'auto',
+      didDrawPage: (data) => {
+        doc.setFontSize(10);
+        doc.text(`Fecha de exportación: ${new Date().toLocaleString()}`, 40, doc.internal.pageSize.height - 20);
+      }
+    });
+    doc.save(`residuos_${selectedResidueType || "todos"}.pdf`);
   };
 
   return (
@@ -83,7 +157,6 @@ function Tables() {
         <div id="h2-group"
           style={{ marginRight: 24, display: 'flex', gap: '32px' }}>
           <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
-          <h2>Opciones</h2>
           <h2>Lenguaje</h2>
         </div>
       </header>
@@ -92,6 +165,27 @@ function Tables() {
           <h2 style={{ textAlign: 'center', marginBottom: 24, color: "#05141f" }}>
             Database Table View (24 columns)
           </h2>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
+            <label>
+              Filtrar por residue_type:&nbsp;
+              <select
+                value={selectedResidueType}
+                onChange={e => setSelectedResidueType(e.target.value)}
+                style={{ padding: 4, borderRadius: 4 }}
+              >
+                <option value="">Todos</option>
+                {residueTypes.map((type, idx) => (
+                  <option key={idx} value={type}>{type}</option>
+                ))}
+              </select>
+            </label>
+            <button onClick={handleExportExcel} style={{ padding: "6px 16px", borderRadius: 4, background: "#1976d2", color: "#fff", border: "none" }}>
+              Descargar Excel
+            </button>
+            <button onClick={handleExportPDF} style={{ padding: "6px 16px", borderRadius: 4, background: "#e57373", color: "#fff", border: "none" }}>
+              Descargar PDF
+            </button>
+          </div>
           <div style={{ overflowX: "auto", padding: 24 }}>
             <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
               <Table stickyHeader>

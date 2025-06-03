@@ -11,29 +11,41 @@ function Excels() {
   const [headers, setHeaders] = useState([]);
   const navigate = useNavigate();
 
-function parseExcelDate(value) {
-  // Si es número (serial de Excel)
-  if (typeof value === "number") {
-    // Excel's day 0 is 1899-12-30
-    const date = new Date(Math.round((value - 25569) * 86400 * 1000));
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const year = date.getUTCFullYear();
-    return `${day}/${month}/${year}`;
-  }
+  const headerMap = {
+    "DATE OF COLLECTION": "collection_date",
+    "TYPE OF WASTE": "waste_type",
+    "COMPANY (TRANSPORTING COMPANY)": "transporter_name",
+    "COMPANY (PURCHASE AND SALE OF RECYCLABLES)": "disposal_site",
+    "ITEM": "area",
+    "QUANTITY": "weight",
+    "UNIT": "unit",
+    "REMISSION HMMX": "remission_number",
+    "REMISSION KIA": "manifest_number"
+  };
 
-  // Si es string en formato D/M/YY, D/M/YYYY, DD/MM/YYYY, etc.
-  if (typeof value === "string" && /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(value)) {
-    let [day, month, year] = value.split("/");
-    if (year.length === 2) {
-      year = Number(year) < 50 ? "20" + year : "19" + year;
+  function parseExcelDate(value) {
+    // Si es número (serial de Excel)
+    if (typeof value === "number") {
+      // Excel's day 0 is 1899-12-30
+      const date = new Date(Math.round((value - 25569) * 86400 * 1000));
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const year = date.getUTCFullYear();
+      return `${day}/${month}/${year}`;
     }
-    return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
-  }
 
-  // Si no es fecha, regresa igual
-  return value;
-}
+    // Si es string en formato D/M/YY, D/M/YYYY, DD/MM/YYYY, etc.
+    if (typeof value === "string" && /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(value)) {
+      let [day, month, year] = value.split("/");
+      if (year.length === 2) {
+        year = Number(year) < 50 ? "20" + year : "19" + year;
+      }
+      return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
+    }
+
+    // Si no es fecha, regresa igual
+    return value;
+  }
 
 
   const handleFileUpload = (e) => {
@@ -46,7 +58,6 @@ function parseExcelDate(value) {
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1, defval: "", raw: false });
-      console.log ("json dta",jsonData);
       // Usa la cuarta línea como encabezados
       const excelHeaders = jsonData[3] || [];
       setHeaders(excelHeaders);
@@ -57,22 +68,23 @@ function parseExcelDate(value) {
         return row;
       });
       setData(filteredData);
+
+      // Enviar automáticamente los datos a la base de datos
     };
     reader.readAsArrayBuffer(file);
   };
 
   // Function to send data to backend
   const uploadToDatabase = async (excelData) => {
-    console.log ("otro", JSON.stringify({ data: excelData }));
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:3001/api/excel-upload", {
+      const response = await fetch("http://localhost:3001/api/residuos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}` 
         },
-        body: JSON.stringify({ data: excelData })
+        body: JSON.stringify({ data: excelData }) // excelData es un array de objetos
       });
       if (response.ok) {
         alert("Datos subidos correctamente a la base de datos.");
@@ -81,6 +93,38 @@ function parseExcelDate(value) {
       }
     } catch (error) {
       alert("Error de conexión con el servidor.");
+    }
+  };
+
+  const uploadAllToDatabase = async (excelData) => {
+    const token = localStorage.getItem('token');
+    let successCount = 0;
+    let errorCount = 0;
+
+    for (const obj of excelData) {
+      try {
+        const response = await fetch("http://localhost:3001/api/residuos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(obj)
+        });
+        if (response.ok) {
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      } catch (error) {
+        errorCount++;
+      }
+    }
+
+    if (successCount > 0) {
+      alert(`Se subieron ${successCount} registros correctamente. ${errorCount > 0 ? errorCount + " errores." : ""}`);
+    } else {
+      alert("Error al subir los datos.");
     }
   };
 
@@ -105,7 +149,6 @@ function parseExcelDate(value) {
         <div id="h2-group"
         style={{marginRight: 24, display: 'flex', gap: '32px'}}>
           <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
-          <h2>Opciones</h2>
           <h2>Lenguaje</h2>
         </div>
     </header>
@@ -125,7 +168,18 @@ function parseExcelDate(value) {
               cursor: "pointer",
               boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
             }}
-            onClick={() => uploadToDatabase(data)}
+            onClick={() => {
+              // Mapea los headers del Excel a los nombres del backend
+              const objetos = data.map(row => {
+                const obj = {};
+                headers.forEach((header, idx) => {
+                  const backendKey = headerMap[header] || header;
+                  obj[backendKey] = row[idx];
+                });
+                return obj;
+              });
+              uploadAllToDatabase(objetos);
+            }}
           >
             Subir datos a la base de datos
           </button>

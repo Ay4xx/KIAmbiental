@@ -13,7 +13,8 @@ const Registro =  () => {
   const [formData, setFormData] = useState({
     /*ID: "",*/
     username: "",
-    contraseña: ""
+    password: "",
+    id_employees: ""
   });
   //
   const [error, setError] = useState("");
@@ -34,14 +35,14 @@ const Registro =  () => {
     try {
       const response = await axios.post("http://localhost:3001/api/registro", {
         username: formData.username,
-        password: formData.contraseña,
-        type: "user",
+        password: formData.password,
+        id_employees: formData.id_employees,
       });
 
       if (response.data.message === "Usuario creado") {
-        setSuccess("Registro exitoso. Redirigiendo al login...");
-        setFormData({ username: "", contraseña: "", type: "user" });
-        setTimeout(() => navigate("/login"), 2000);
+        setSuccess("Registro exitoso. Redirigiendo al inicio...");
+        setFormData({ username: "", contraseña: "" });
+        setTimeout(() => navigate("/home"), 1500); // Redirige a inicio después de 1.5 segundos
       } else {
         setError("Error al registrar usuario");
       }
@@ -152,8 +153,18 @@ const Registro =  () => {
               Contraseña:
               <input
                 type="password"
-                name="contraseña"
-                value={formData.contraseña}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              ID de empleado:
+              <input
+                type="id_employees"
+                name="id_employees"
+                value={formData.id_employees}
                 onChange={handleChange}
                 required
               />
