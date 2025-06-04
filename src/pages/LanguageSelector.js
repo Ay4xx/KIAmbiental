@@ -4,15 +4,47 @@ import { useTranslation } from 'react-i18next';
 function LanguageSelector() {
   const { i18n } = useTranslation();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLang);
   };
 
   return (
     <div>
-      {/*puedes modificarlo a algo mas creativo que un boton o un selc, no se. no tengo creatividad*/}
-      <button onClick={() => i18n.changeLanguage('es')}>ES</button>
-      <button onClick={() => i18n.changeLanguage('en')} style={{ marginLeft: '0.5rem' }}>EN</button>
+      <button
+        onClick={toggleLanguage}
+        style={{
+          display: 'flex',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          overflow: 'hidden',
+          padding: 0,
+        }}
+      >
+        <span
+          style={{
+            background: i18n.language === 'en' ? '#007bff' : '#fff',
+            color: i18n.language === 'en' ? '#fff' : '#000',
+            padding: '8px 16px',
+            borderRight: '1px solid #ccc',
+            fontWeight: i18n.language === 'en' ? 'bold' : 'normal',
+            transition: 'background 0.2s',
+          }}
+        >
+          EN
+        </span>
+        <span
+          style={{
+            background: i18n.language === 'es' ? '#007bff' : '#fff',
+            color: i18n.language === 'es' ? '#fff' : '#000',
+            padding: '8px 16px',
+            fontWeight: i18n.language === 'es' ? 'bold' : 'normal',
+            transition: 'background 0.2s',
+          }}
+        >
+          ES
+        </span>
+      </button>
     </div>
   );
 }

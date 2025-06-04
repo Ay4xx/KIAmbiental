@@ -5,6 +5,8 @@ import axios from "axios";
 // para i18n
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
+import { jwtDecode } from "jwt-decode";
+
 
 function Login({ setAutenticado }) {
 
@@ -17,6 +19,9 @@ function Login({ setAutenticado }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  
+  
+
   const manejarLogin = async (e) => {
     // Simulacion de credenciales validas
     // const usuario = "admin";
@@ -26,7 +31,7 @@ function Login({ setAutenticado }) {
     try{
       const res = await axios.post('http://localhost:3001/api/login', {
         username,
-        password
+        password,
       });
       const { token } = res.data;
       localStorage.setItem("token", token);

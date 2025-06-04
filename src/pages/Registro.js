@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Registro.css"; // Importa tu archivo CSS para estilos
 import SlideshowBackground from "./slideshow";
+import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from 'react-i18next';
 
-  
-const Registro =  () => {
+
+const Registro =  ({ admin }) => {
+
+  const { t, i18n } = useTranslation();
+
 
   const navigate = useNavigate();
 
@@ -111,7 +116,8 @@ const Registro =  () => {
             alt="KIA logo"
             style={{ height: 25, padding: 0 }}
           />
-          <h1 style={{ margin: 0, color: "#ffffff", fontWeight: 700, fontSize: 36 }}>mbiental</h1>
+          <h1 style={{ margin: 0, color: "#ffffff", fontWeight: 700, fontSize: 36 }}>
+            {t(registro.title)}</h1>
         </div>
 
         {/* Registration Form - bigger container */}
@@ -127,6 +133,7 @@ const Registro =  () => {
           flexDirection: "column",
           alignItems: "center"
         }}>
+          <LanguageSelector />
           <h2 style={{ color: "#05141f", marginBottom: 24 }}>Registro</h2>
           <form onSubmit={handleSubmit} className="registro-form" style={{ width: "100%" }}>
            {/* <label>
@@ -140,7 +147,7 @@ const Registro =  () => {
               />
             </label>*/}
             <label>
-              Username:
+              Nombre de usuario:
               <input
                 type="text"
                 name="username"

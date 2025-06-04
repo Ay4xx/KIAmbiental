@@ -5,5 +5,13 @@
     "password": "Password",
     "button": "Sign in",
     "error": "Invalid credentials"
+  },
+  "registro": {
+    "title": "Sign up",
+    "username": "Username",
+    "password": "Password",
+    "id": "Employee ID",
+    "button": "Register",
+    "error": "Registration error"
   }
 }

@@ -9,11 +9,14 @@ import { useState } from "react";
 import './App.css';
 import Excels from "./pages/Excels";
 import Tables from "./pages/tables";
+import { jwtDecode } from "jwt-decode";
 
 // Componente principal de la aplicación
 function App() {
   const [autenticado, setAutenticado] = useState(false);
+  
 
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -22,6 +25,7 @@ function App() {
           path="/login"
           element={<Login setAutenticado={setAutenticado} />}
         />
+
         <Route
           path="/dashboard"
           element={
@@ -52,8 +56,8 @@ function App() {
           path="/registro"
           element={
             autenticado
-              ? <Registro setAutenticado={setAutenticado} />
-              : <Navigate to="/login" replace />
+              ? <Registro />
+              : <Navigate to="/home" replace />
           }
         />
         <Route

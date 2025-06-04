@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 function ActionAreaCard() {
 
   const navigate = useNavigate();
-  
+
 
   return (
   <div id="card-container"
@@ -21,6 +21,11 @@ function ActionAreaCard() {
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'nowrap',
+    background: 'rgba(19, 19, 19, 0.4)', // <-- semi-transparent white
+    borderRadius: 24,
+    padding: 32,
+    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+    backdropFilter: 'blur(1.5px)'
   }}>
     <Card   
     sx={{
@@ -48,10 +53,10 @@ function ActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Dashboard
+            Tablero
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para ir al dashboard
+            Haz click aqui para visualizar el tablero
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -72,7 +77,7 @@ function ActionAreaCard() {
     onClick={() => { 
       navigate('/registro');
    }}
->
+   >
       <CardActionArea>
         <CardMedia
           className="card-media"
@@ -159,7 +164,7 @@ function ActionAreaCard() {
             Excel
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para ver descargar Excel
+            Haz click aqui para subir un Excel
           </Typography>
         </CardContent>
       </CardActionArea>

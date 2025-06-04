@@ -16,6 +16,7 @@ function Home() {
     setMenuOpen(!menuOpen); // abre/cierra menu
   };
  
+  
 
   return (
     <div className="Home" id="home">
@@ -47,7 +48,11 @@ function Home() {
         </div>
         */}
 
-        <div class="tarjetas">
+        <div class="tarjetas"
+        style={{
+          position: 'absolute',
+          top: '60%',
+        }}>
           <ActionAreaCard />
         </div>
           

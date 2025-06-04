@@ -5,5 +5,13 @@
     "password": "Contraseña",
     "button": "Entrar",
     "error": "Credenciales inválidas"
+  },
+  "registro": {
+    "title": "Registro",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "id": "ID de empleado",
+    "button": "Registrar",
+    "error": "Error al registrar"
   }
 }
