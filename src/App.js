@@ -10,6 +10,9 @@ import './App.css';
 import Excels from "./pages/Excels";
 import Tables from "./pages/tables";
 import { jwtDecode } from "jwt-decode";
+//unity 
+import UnityPlayer from './components/UnityPlayer';
+
 
 // Componente principal de la aplicación
 function App() {
@@ -20,7 +23,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />{/*pruebapara dash, la volvi raiz*/}
+        {/* : Unity */}
+         <Route path="/" element={<UnityPlayer />} />
+
+
+
+        <Route path="/" element={<Navigate to="/login" replace />} />pruebapara dash, la volvi raiz
         <Route
           path="/login"
           element={<Login setAutenticado={setAutenticado} />}
