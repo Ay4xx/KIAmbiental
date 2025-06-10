@@ -199,9 +199,11 @@ function ActionAreaCard() {
             alt="juego"
           />
           <CardContent>
-            <Typography variant="h5">Juego WebGL</Typography>
-            <Typography variant="body2">
-              Haz clic aquí para iniciar el juego
+            <Typography gutterBottom variant="h5" component="div">
+              {t('cards.card5')}
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {t('cards.text5')}
             </Typography>
           </CardContent>
         </CardActionArea>

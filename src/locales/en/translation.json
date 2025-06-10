@@ -31,7 +31,9 @@
     "text2": "Click to register a new user",
     "card3": "Tables",
     "text3": "Click to view the tables",
-    "text4": "Click to upload an Excel file"
+    "text4": "Click to upload an Excel file",
+    "card5": "Game WebGL",
+    "text5": "Click to view the WebGL game"
   },
   "profile": {
     "id": "Employee ID",
