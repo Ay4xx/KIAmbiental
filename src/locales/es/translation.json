@@ -13,5 +13,33 @@
     "id": "ID de empleado",
     "button": "Registrar",
     "error": "Error al registrar"
+  },
+  "tables": {
+    "title": "Datos de residuos",
+    "table_select": "Seleccionar tabla",
+    "table_name1": "Residuos",
+    "table_name2": "Autorizaciones",
+    "filtro": "Filtrar por tipo de residuo",
+    "todos": "Todos",
+    "pdf": "Exportar a PDF",
+    "excel": "Exportar a Excel"
+  },
+  "cards": {
+    "card1": "Tablero",
+    "text1": "Haz click para visualizar el tablero",
+    "card2": "Registro",
+    "text2": "Haz click para registrar un nuevo usuario",
+    "card3": "Tablas",
+    "text3": "Haz click para visualizar las tablas",
+    "text4": "Haz click para subir un archivo Excel"
+  },
+  "profile": {
+    "id":"ID de empleado",
+    "user": "Tipo de usuario"
+  },
+  "excels": {
+    "title": "Selecciona una bitácora de Excel para subir a la base de datos",
+    "button": "Subir datos a la base de datos",
+    "error": "Error al subir el archivo"
   }
 }

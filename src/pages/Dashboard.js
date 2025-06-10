@@ -8,6 +8,9 @@ import KPIgraph from "../graficas/KPIgraphs.js";
 
 import React, {useState} from 'react';
 
+import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from 'react-i18next';
+
 function Dashboard() {
 
   const navigate = useNavigate();
@@ -41,8 +44,18 @@ function Dashboard() {
         </div>
         <div id="h2-group"
         style={{marginRight: 24, display: 'flex', gap: '32px'}}>
-          <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
-          <h2>Lenguaje</h2>
+          <h2 style={{
+            position: 'relative', 
+            top: 6, 
+            cursor: 'pointer', 
+            fontSize: '1rem', 
+            fontWeight: 500, 
+            fontFamily: 'Formula1-Regular' }
+          } onClick={() => navigate('/perfil')}>Perfil</h2>
+          <LanguageSelector 
+          style={
+            { display: 'flex', alignItems: 'center', cursor: 'pointer' }
+          }/>
         </div>
         </header>
   <main>

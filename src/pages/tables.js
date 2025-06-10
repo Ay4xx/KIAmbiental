@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,12 +14,14 @@ import Box from '@mui/material/Box';
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+//traductor
+import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from 'react-i18next';
 
-// Column titles for the 12 columns
-const columnTitles = [
+// Column titles for residue_logs
+const residueLogsColumns = [
   "id",
   "collection_date",
-  "residue_type",
   "transporter_name",
   "disposal_site",
   "waste_type",
@@ -27,38 +29,85 @@ const columnTitles = [
   "weight",
   "quantity",
   "unit",
-  "remission_number",
-  "manifest_number",
+  "remission_hmmx",
+  "remision_kia",
+  "purchase_name",
+  "item"
 ];
 
-// Fetch real data from backend
-const fetchTableData = async () => {
-  const res = await fetch("http://localhost:3001/api/residuos");
+// Column titles for residue_authorizations
+const residueAuthColumns = [
+  "id",
+  "residue_id",
+  "folio",
+  "date",
+  "time",
+  "requester_name",
+  "company",
+  "department",
+  "origin",
+  "destination",
+  "reason",
+  "material_type",
+  "container_type",
+  "description",
+  "tara",
+  "gross_weight",
+  "net_weight",
+  "quantity",
+  "license_plate",
+  "economic_number",
+  "authorized_by",
+  "authorization_date",
+  "file_name"
+  // file_data is omitted for display
+];
+
+// Fetch data for residue_logs
+const fetchResidueLogs = async (token) => {
+  const res = await fetch("http://localhost:3001/api/residuos", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
   const json = await res.json();
-  // Return as array of arrays for compatibility with your filter logic
-  return json.map(obj => columnTitles.map(col => obj[col]));
+  return json.map(obj => residueLogsColumns.map(col => obj[col]));
+};
+
+// Fetch data for residue_authorizations
+const fetchResidueAuth = async (token) => {
+  const res = await fetch("http://localhost:3001/api/residue_authorizations", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const json = await res.json();
+  return json.map(obj => residueAuthColumns.map(col => obj[col]));
 };
 
 function Tables() {
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState(Array(columnTitles.length).fill(""));
+  const [filters, setFilters] = useState([]);
+  const [columns, setColumns] = useState(residueLogsColumns);
+  const [selectedTable, setSelectedTable] = useState("residue_logs");
+
+  const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
+  // Fetch data when table changes
   useEffect(() => {
-    fetch("http://localhost:3001/api/residuos", {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const fetchData = async () => {
+      if (selectedTable === "residue_logs") {
+        setColumns(residueLogsColumns);
+        setFilters(Array(residueLogsColumns.length).fill(""));
+        setData(await fetchResidueLogs(token));
+      } else {
+        setColumns(residueAuthColumns);
+        setFilters(Array(residueAuthColumns.length).fill(""));
+        setData(await fetchResidueAuth(token));
       }
-    })
-      .then(res => res.json())
-      .then(json => {
-        // Convierte cada objeto a un array alineado con columnTitles
-        const rows = json.map(obj => columnTitles.map(col => obj[col]));
-        setData(rows);
-      });
-  }, []);
+    };
+    fetchData();
+    // eslint-disable-next-line
+  }, [selectedTable]);
 
   // Filter logic
   const filteredData = data.filter(row =>
@@ -78,23 +127,23 @@ function Tables() {
   const [selectedResidueType, setSelectedResidueType] = useState("");
 
   // Obtén los residue_type únicos para el select
-  const residueTypes = Array.from(new Set(data.map(row => row[2]))); // 2 es el índice de residue_type
+  const residueTypes = Array.from(new Set(data.map(row => row[4]))); // 2 es el índice de residue_type
 
   // Datos filtrados para exportar
   const exportData = filteredData.filter(row =>
-    selectedResidueType === "" || row[2] === selectedResidueType
+    selectedResidueType === "" || row[4] === selectedResidueType
   );
 
   // Exportar a Excel
   const handleExportExcel = () => {
     // Create worksheet with headers and data
-    const ws = XLSX.utils.aoa_to_sheet([columnTitles, ...exportData]);
+    const ws = XLSX.utils.aoa_to_sheet([columns, ...exportData]);
 
     // Set column widths for better readability
-    ws['!cols'] = columnTitles.map(() => ({ wch: 18 }));
+    ws['!cols'] = columns.map(() => ({ wch: 18 }));
 
     // Bold and center headers (works in most Excel viewers)
-    columnTitles.forEach((col, idx) => {
+    columns.forEach((col, idx) => {
       const cell = XLSX.utils.encode_cell({ r: 0, c: idx });
       if (!ws[cell]) ws[cell] = {};
       ws[cell].s = {
@@ -105,7 +154,7 @@ function Tables() {
     });
 
     // Add autofilter
-    ws['!autofilter'] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: 0, c: columnTitles.length - 1 } }) };
+    ws['!autofilter'] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: 0, c: columns.length - 1 } }) };
 
     // Freeze the header row
     ws['!freeze'] = { xSplit: 0, ySplit: 1 };
@@ -124,7 +173,7 @@ function Tables() {
     doc.text(`Residuos - ${selectedResidueType || "Todos"}`, 40, 40);
 
     autoTable(doc, {
-      head: [columnTitles],
+      head: [columns],
       body: exportData,
       startY: 60,
       styles: { fontSize: 10, cellPadding: 4 },
@@ -142,7 +191,7 @@ function Tables() {
 
   return (
     <Box sx={{ background: "#f4f6fa", minHeight: "100vh", p: 0 }}
-    style={{ overflowX: 'hidden' }}>
+      style={{ overflowX: 'hidden' }}>
       <header className='header' id="header"
         style={{
           position: 'sticky',
@@ -156,34 +205,57 @@ function Tables() {
         </div>
         <div id="h2-group"
           style={{ marginRight: 24, display: 'flex', gap: '32px' }}>
-          <h2 onClick={() => navigate('/perfil')}>Perfil</h2>
-          <h2>Lenguaje</h2>
+          <h2 style={{
+            position: 'relative', 
+            top: 6, 
+            cursor: 'pointer', 
+            fontSize: '1rem', 
+            fontWeight: 500, 
+            fontFamily: 'Formula1-Regular' }
+          } onClick={() => navigate('/perfil')}>Perfil</h2>
+          <LanguageSelector 
+          style={
+            { display: 'flex', alignItems: 'center', cursor: 'pointer' }
+          }/>
         </div>
       </header>
       <Card sx={{ margin: 4, padding: 2, boxShadow: 6, borderRadius: 4 }}>
         <CardContent>
           <h2 style={{ textAlign: 'center', marginBottom: 24, color: "#05141f" }}>
-            Database Table View (24 columns)
+            {t('tables.title')}
           </h2>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
             <label>
-              Filtrar por residue_type:&nbsp;
+              {t('tables.table_select')}:&nbsp;
               <select
-                value={selectedResidueType}
-                onChange={e => setSelectedResidueType(e.target.value)}
+                value={selectedTable}
+                onChange={e => setSelectedTable(e.target.value)}
                 style={{ padding: 4, borderRadius: 4 }}
               >
-                <option value="">Todos</option>
-                {residueTypes.map((type, idx) => (
-                  <option key={idx} value={type}>{type}</option>
-                ))}
+                <option value="residue_logs">{t('tables.table_name1')}</option>
+                <option value="residue_authorizations">{t('tables.table_name2')}</option>
               </select>
             </label>
+            {selectedTable === "residue_logs" && (
+              <label>
+                {t('tables.filtro')}:&nbsp;
+                <select
+                  value={selectedResidueType}
+                  onChange={e => setSelectedResidueType(e.target.value)}
+                  style={{ padding: 4, borderRadius: 4 }}
+                >
+                  <option value="">{t('tables.todos')}</option>
+                  {residueTypes.map((type, idx) => (
+                    <option key={idx} value={type}>{type}</option>
+                  ))}
+                </select>
+              </label>
+            )}
             <button onClick={handleExportExcel} style={{ padding: "6px 16px", borderRadius: 4, background: "#1976d2", color: "#fff", border: "none" }}>
-              Descargar Excel
+              {t('tables.excel')}
             </button>
             <button onClick={handleExportPDF} style={{ padding: "6px 16px", borderRadius: 4, background: "#e57373", color: "#fff", border: "none" }}>
-              Descargar PDF
+              {t('tables.pdf')}
             </button>
           </div>
           <div style={{ overflowX: "auto", padding: 24 }}>
@@ -191,7 +263,7 @@ function Tables() {
               <Table stickyHeader>
                 <TableHead>
                   <TableRow>
-                    {columnTitles.map((title, idx) => (
+                    {columns.map((title, idx) => (
                       <TableCell
                         key={idx}
                         sx={{
@@ -205,7 +277,7 @@ function Tables() {
                         <span style={{ display: "block", marginBottom: 8 }}>{title}</span>
                         <TextField
                           variant="standard"
-                          value={filters[idx]}
+                          value={filters[idx] || ""}
                           onChange={e => handleFilterChange(idx, e.target.value)}
                           placeholder="Filtrar"
                           size="small"
@@ -224,7 +296,12 @@ function Tables() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredData.map((row, i) => (
+                  {data.filter(row =>
+                    row.every((cell, idx) =>
+                      filters[idx] === "" ||
+                      String(cell).toLowerCase().includes(filters[idx].toLowerCase())
+                    )
+                  ).map((row, i) => (
                     <TableRow
                       key={i}
                       sx={{

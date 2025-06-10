@@ -15,31 +15,32 @@ function LanguageSelector() {
         onClick={toggleLanguage}
         style={{
           display: 'flex',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
+          border: 'none',
+          borderRadius: '20px',
           overflow: 'hidden',
           padding: 0,
+          backgroundColor: '#05141f',
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
         }}
       >
         <span
           style={{
-            background: i18n.language === 'en' ? '#007bff' : '#fff',
-            color: i18n.language === 'en' ? '#fff' : '#000',
+            background: i18n.language === 'en' ? '#1976d2' : '#05141f',
+            color: i18n.language === 'en' ? '#fff' : '#ccc',
             padding: '8px 16px',
-            borderRight: '1px solid #ccc',
             fontWeight: i18n.language === 'en' ? 'bold' : 'normal',
-            transition: 'background 0.2s',
+            transition: 'background 0.3s, color 0.3s',
           }}
         >
           EN
         </span>
         <span
           style={{
-            background: i18n.language === 'es' ? '#007bff' : '#fff',
-            color: i18n.language === 'es' ? '#fff' : '#000',
+            background: i18n.language === 'es' ? '#1976d2' : '#05141f',
+            color: i18n.language === 'es' ? '#fff' : '#ccc',
             padding: '8px 16px',
             fontWeight: i18n.language === 'es' ? 'bold' : 'normal',
-            transition: 'background 0.2s',
+            transition: 'background 0.3s, color 0.3s',
           }}
         >
           ES

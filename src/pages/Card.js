@@ -7,10 +7,13 @@ import CardActionArea from '@mui/material/CardActionArea';
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from 'react-i18next';
+
 function ActionAreaCard() {
 
   const navigate = useNavigate();
 
+  const { t, i18n } = useTranslation();
 
   return (
   <div id="card-container"
@@ -53,10 +56,10 @@ function ActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Tablero
+            {t('cards.card1')}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para visualizar el tablero
+            {t('cards.text1')}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -89,10 +92,10 @@ function ActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Registro
+            {t('cards.card2')}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para ir al registro
+            {t('cards.text2')}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -125,10 +128,10 @@ function ActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Tablas
+            {t('cards.card3')}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para ver las tablas
+            {t('cards.text3')} 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -164,7 +167,7 @@ function ActionAreaCard() {
             Excel
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Haz click aqui para subir un Excel
+            {t('cards.text4')}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Registro.css"; // Importa tu archivo CSS para estilos
 import SlideshowBackground from "./slideshow";
+// traductor
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from 'react-i18next';
 
@@ -117,7 +118,7 @@ const Registro =  ({ admin }) => {
             style={{ height: 25, padding: 0 }}
           />
           <h1 style={{ margin: 0, color: "#ffffff", fontWeight: 700, fontSize: 36 }}>
-            {t(registro.title)}</h1>
+            {t('registro.title')}</h1>
         </div>
 
         {/* Registration Form - bigger container */}
@@ -134,7 +135,7 @@ const Registro =  ({ admin }) => {
           alignItems: "center"
         }}>
           <LanguageSelector />
-          <h2 style={{ color: "#05141f", marginBottom: 24 }}>Registro</h2>
+          <h2 style={{ color: "#05141f", marginBottom: 24 }}>{t('registro.title')}</h2>
           <form onSubmit={handleSubmit} className="registro-form" style={{ width: "100%" }}>
            {/* <label>
               ID de empleado:
@@ -147,7 +148,7 @@ const Registro =  ({ admin }) => {
               />
             </label>*/}
             <label>
-              Nombre de usuario:
+              {t('registro.username')}:
               <input
                 type="text"
                 name="username"
@@ -157,7 +158,7 @@ const Registro =  ({ admin }) => {
               />
             </label>
             <label>
-              Contraseña:
+              {t('registro.password')}:
               <input
                 type="password"
                 name="password"
@@ -167,7 +168,7 @@ const Registro =  ({ admin }) => {
               />
             </label>
             <label>
-              ID de empleado:
+              {t('registro.id')}:
               <input
                 type="id_employees"
                 name="id_employees"
@@ -176,7 +177,7 @@ const Registro =  ({ admin }) => {
                 required
               />
             </label>
-            <button type="submit">Registrarse</button>
+            <button type="submit">{t('registro.button')}</button>
           </form>
         </div>
       </div>

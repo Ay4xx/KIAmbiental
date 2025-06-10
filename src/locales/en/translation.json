@@ -13,5 +13,33 @@
     "id": "Employee ID",
     "button": "Register",
     "error": "Registration error"
+  },
+  "tables": {
+    "title": "Residue Data",
+    "table_select": "Select Table",
+    "table_name1": "Residues",
+    "table_name2": "Authorizations",
+    "filtro": "Filter by Waste Type",
+    "todos": "All",
+    "pdf": "Export to PDF",
+    "excel": "Export to Excel"
+  },
+  "cards": {
+    "card1": "Dashboard",
+    "text1": "Click to view the dashboard",
+    "card2": "Sign Up",
+    "text2": "Click to register a new user",
+    "card3": "Tables",
+    "text3": "Click to view the tables",
+    "text4": "Click to upload an Excel file"
+  },
+  "profile": {
+    "id": "Employee ID",
+    "user": "User Type"
+  },
+  "excels": {
+    "title": "Select an Excel log to upload to the database",
+    "button": "Upload data to the database",
+    "error": "Error uploading file"
   }
 }
