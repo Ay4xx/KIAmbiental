@@ -3,22 +3,29 @@ import { useUnityContext, Unity } from 'react-unity-webgl'
 
 export default function UnityPlayer() {
   // ajusta aquí los nombres exactos de tus ficheros en public/unity/
-  const { unityProvider, loadingProgression } = useUnityContext({
-    loaderUrl:    process.env.PUBLIC_URL + '/unity/KIAmbientalGamificacion.loader.js',
-    dataUrl:      process.env.PUBLIC_URL + '/unity/KIAmbientalGamificacion.data',
-    frameworkUrl: process.env.PUBLIC_URL + '/unity/KIAmbientalGamificacion.framework.js',
-    codeUrl:      process.env.PUBLIC_URL + '/unity/KIAmbientalGamificacion.wasm',
+  const { unityProvider } = useUnityContext({
+    loaderUrl:    process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.loader.js',
+    dataUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.data',
+    frameworkUrl: process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.framework.js',
+    codeUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.wasm',
   })
 
   return (
-    <div style={{ textAlign: 'center', padding: 20 }}>
-      <p>Cargando juego… {Math.round(loadingProgression * 100)}%</p>
-      <div style={{ 
-        width: '800px', height: '600px', margin: 'auto', 
-        border: '2px solid #000', background: '#444' 
-      }}>
-        <Unity unityProvider={unityProvider} />
-      </div>
+    <div className='unityWrapper'>
+        <Unity
+          unityProvider={unityProvider} 
+          style={{ 
+                   width: "100%",
+                    height: "480px",
+                    border: "2px solid black",
+                    background: "grey",
+                    margin: "0 auto",
+                    marginTop: "10px",
+                    display: "block",     
+                    
+      }}
+          
+        />
     </div>
   )
 }

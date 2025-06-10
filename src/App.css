@@ -45,4 +45,11 @@
   padding: 1.5rem;
   margin-bottom: 2rem;
 }
+.unityWrapper {
+  max-width: 640px;            /* ancho máximo deseado */
+  margin: 20px auto;           /* centrado horizontal + separación arriba/abajo */
+  border: 2px solid black;
+  background: grey;
+  overflow: hidden;            /* corta cualquier “overflow” */
+}
 
