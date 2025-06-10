@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Perfil from "./pages/Perfil";
 import Registro from "./pages/Registro";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
 import Excels from "./pages/Excels";
 import Tables from "./pages/tables";
@@ -15,20 +15,32 @@ import UnityPlayer from './components/UnityPlayer';
 
 
 // Componente principal de la aplicación
+
+//para guardar la sesion si esta autenticado
 function App() {
-  const [autenticado, setAutenticado] = useState(false);
+  const [autenticado, setAutenticado] = useState(
+    () => localStorage.getItem("auth") === "true"
+  );
   
+   // cada q cambie autenticado, lo guardamos
+  useEffect(() => {
+    localStorage.setItem("auth", autenticado ? "true" : "false");
+  }, [autenticado]);
 
   
   return (
     <BrowserRouter>
       <Routes>
-        {/* : Unity */}
-         <Route path="/" element={<UnityPlayer />} />
 
+        <Route path="/"
+         element={
+          autenticado
+          ?
+         <Navigate to="/home" replace />
+          : <Navigate to="/login" replace />
+          }
+           />
 
-
-        <Route path="/" element={<Navigate to="/login" replace />} />pruebapara dash, la volvi raiz
         <Route
           path="/login"
           element={<Login setAutenticado={setAutenticado} />}
@@ -82,6 +94,16 @@ function App() {
             autenticado
               ? <Tables setAutenticado={setAutenticado} />
               : <Navigate to="/login" replace />
+          }
+        />
+
+        {/* : Unity */}
+        <Route 
+          path="/juego"
+          element={
+            autenticado
+            ? <UnityPlayer />
+            : <Navigate to="/login" replace/>
           }
         />
       </Routes>

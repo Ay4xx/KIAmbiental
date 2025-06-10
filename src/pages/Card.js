@@ -172,9 +172,46 @@ function ActionAreaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
+
+
+
+      <Card
+        sx={{
+      maxWidth: 420,
+      width: '100%',
+      transition: 'background-color 0.3s ease',
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        '& .card-media': {
+          opacity: 0.8, // Darken the image
+        },
+      },
+    }}
+      onClick={() => {
+        navigate("/juego");
+      }}
+    >
+       <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image="/kiacar.png"
+            alt="juego"
+          />
+          <CardContent>
+            <Typography variant="h5">Juego WebGL</Typography>
+            <Typography variant="body2">
+              Haz clic aquí para iniciar el juego
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      
   </div>
 
-    
+
+
+
   );
 }
 
