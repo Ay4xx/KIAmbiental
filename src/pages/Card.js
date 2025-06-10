@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from 'react-i18next';
 
-function ActionAreaCard() {
+function ActionAreaCard({role}) {
 
   const navigate = useNavigate();
 
@@ -64,6 +64,9 @@ function ActionAreaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
+
+    {role === "admin" && (
+        <>
 
     <Card 
     sx={{
@@ -172,9 +175,9 @@ function ActionAreaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
-
-
-
+        </>
+      )}
+      
       <Card
         sx={{
       maxWidth: 420,

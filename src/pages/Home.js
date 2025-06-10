@@ -7,7 +7,7 @@ import SlideshowBackground from './slideshow.js';
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from 'react-i18next';
 
-function Home() {
+export default function Home({onLogout, role}) {
 
   //para ir a dash
   const navigate = useNavigate();
@@ -21,7 +21,11 @@ function Home() {
 
   const { t, i18n } = useTranslation();
  
-  
+  const logout = () => {
+    onLogout();
+    navigate("/login");
+  };
+
 
   return (
     <div className="Home" id="home">
@@ -68,7 +72,7 @@ function Home() {
           position: 'absolute',
           top: '60%',
         }}>
-          <ActionAreaCard />
+          <ActionAreaCard role={role}/>
         </div>
           
         {/*
@@ -90,4 +94,3 @@ function Home() {
   )
 }
 
-export default Home

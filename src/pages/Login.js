@@ -8,7 +8,7 @@ import LanguageSelector from './LanguageSelector';
 import { jwtDecode } from "jwt-decode";
 
 
-function Login({ setAutenticado }) {
+function Login({ setAutenticado, setRole }) {
 
 // Hook de navegación
   const navigate = useNavigate();
@@ -23,9 +23,7 @@ function Login({ setAutenticado }) {
   
 
   const manejarLogin = async (e) => {
-    // Simulacion de credenciales validas
-    // const usuario = "admin";
-    // const contrasena = "1234";  
+
     e.preventDefault();
     
     try{
@@ -33,11 +31,15 @@ function Login({ setAutenticado }) {
         username,
         password,
       });
+
       const { token } = res.data;
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
+
+      const payload = jwtDecode(token);
+      setRole(payload.type_user);
+
       setAutenticado(true);
       navigate("/home");
-      
     }catch (err) {
     console.error(err);
     setError(t('login.error')); //asi es el uso del translter con las claves

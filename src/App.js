@@ -1,8 +1,10 @@
 // Importamos los módulos de rutas y los componentes de página
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
+import Home  from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import UserDashboard from "./pages/UserDashboard"; //  crearlo
+
 import Perfil from "./pages/Perfil";
 import Registro from "./pages/Registro";
 import { useState, useEffect } from "react";
@@ -14,24 +16,43 @@ import { jwtDecode } from "jwt-decode";
 import UnityPlayer from './components/UnityPlayer';
 
 
-// Componente principal de la aplicación
-
-//para guardar la sesion si esta autenticado
 function App() {
+
+  //esta autenticado? de aqui sale
   const [autenticado, setAutenticado] = useState(
-    () => localStorage.getItem("auth") === "true"
+    () => Boolean(sessionStorage.getItem("token"))
   );
+
+  //rol del token
+  const [role, setRole] = useState(() => {
+    const t = sessionStorage.getItem("token");
+    return t ? jwtDecode(t).type_user : null;
+  });
   
-   // cada q cambie autenticado, lo guardamos
+  //  // cada q cambie autenticado, lo guardamos
+  // useEffect(() => {
+  //   sessionStorage.setItem("auth", autenticado ? "true" : "false");
+  // }, [autenticado]);
+  // Cuando desloguees, elimina token y rol
+
+  
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    setAutenticado(false);
+    setRole(null); 
+  };
+
+//cleanup token
   useEffect(() => {
-    localStorage.setItem("auth", autenticado ? "true" : "false");
+    if (!autenticado) {
+      sessionStorage.removeItem("token");
+    }
   }, [autenticado]);
 
-  
   return (
     <BrowserRouter>
       <Routes>
-
+        
         <Route path="/"
          element={
           autenticado
@@ -43,56 +64,39 @@ function App() {
 
         <Route
           path="/login"
-          element={<Login setAutenticado={setAutenticado} />}
+          element={
+          <Login
+           setAutenticado={setAutenticado}
+           setRole={setRole} />}
         />
 
         <Route
           path="/dashboard"
           element={
             autenticado
-              ? <Dashboard setAutenticado={setAutenticado}/>
+               ? (
+                  role === "admin"
+                    ? <Dashboard onLogout={handleLogout} />
+                    : <UserDashboard onLogout={handleLogout} />
+                )
               : <Navigate to="/login" replace />
           }
         />
-        
-        {/* solo accesible si el usuario está autenticado, igual para dash*/}
+
         <Route
           path="/home"
           element={
             autenticado
-              ? <Home setAutenticado={setAutenticado} />
+              ? <Home onLogout={handleLogout} role={role}/>
               : <Navigate to="/login" replace />
           }
         />
+
         <Route
           path="/perfil"
           element={
             autenticado
               ? <Perfil setAutenticado={setAutenticado} />
-              : <Navigate to="/login" replace />
-          }
-        />
-        <Route
-          path="/registro"
-          element={
-            autenticado
-              ? <Registro />
-              : <Navigate to="/home" replace />
-          }
-        />
-        <Route
-          path="/descargar"
-          element={
-            autenticado
-              ? <Excels setAutenticado={setAutenticado} />
-              : <Navigate to="/login" replace />
-          }
-        />
-        <Route
-          path="/tablas"
-          element={
-            autenticado
-              ? <Tables setAutenticado={setAutenticado} />
               : <Navigate to="/login" replace />
           }
         />
@@ -106,6 +110,34 @@ function App() {
             : <Navigate to="/login" replace/>
           }
         />
+        {/* solo aadmins*/}
+
+
+        <Route
+          path="/registro"
+          element={
+            autenticado && role === "admin"
+              ? <Registro />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/descargar"
+          element={
+            autenticado && role === "admin"
+              ? <Excels setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/tablas"
+          element={
+            autenticado && role === "admin"
+              ? <Tables setAutenticado={setAutenticado} />
+              : <Navigate to="/login" replace />
+          }
+        />
+
       </Routes>
     </BrowserRouter>
   );
