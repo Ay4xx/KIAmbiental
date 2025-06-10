@@ -25,7 +25,7 @@ function Perfil() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token'); // Obtén el token del usuario
+        const token = sessionStorage.getItem('token'); // Obtén el token del usuario
         if (!token) {
           console.error('Token no encontrado en localStorage');
           return;
@@ -33,6 +33,7 @@ function Perfil() {
 
         // Decodifica el token para obtener el ID del usuario
         const decodedToken = jwtDecode(token);
+        console.log("Token decodificado:", decodedToken);
         const userId = decodedToken.id; // Extrae el ID del usuario del token
 
         const res = await fetch(`http://localhost:3001/api/usuarios/${userId}`, {

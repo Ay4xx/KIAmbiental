@@ -64,12 +64,20 @@ const residueAuthColumns = [
 ];
 
 // Fetch data for residue_logs
+
 const fetchResidueLogs = async (token) => {
   const res = await fetch("http://localhost:3001/api/residuos", {
     headers: { Authorization: `Bearer ${token}` }
   });
-  const json = await res.json();
-  return json.map(obj => residueLogsColumns.map(col => obj[col]));
+  const text = await res.text();
+  console.log("Respuesta de /api/residuos:", text);
+  try {
+    const json = JSON.parse(text);
+    return json.map(obj => residueLogsColumns.map(col => obj[col]));
+  } catch (error) {
+    console.error("Error al parsear JSON:", error);
+    return []; // O maneja el error de manera apropiada
+  }
 };
 
 // Fetch data for residue_authorizations
@@ -90,7 +98,7 @@ function Tables() {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   // Fetch data when table changes
   useEffect(() => {

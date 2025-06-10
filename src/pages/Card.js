@@ -51,7 +51,7 @@ function ActionAreaCard({role}) {
           sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
           component="img"
           height="140"
-          image="/kiacar.png"
+          image="/22902_2025_K4.jpg"
           alt="dashboard"
         />
         <CardContent>
@@ -60,6 +60,42 @@ function ActionAreaCard({role}) {
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {t('cards.text1')}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+
+        <Card 
+    sx={{
+      maxWidth: 420,
+      width: '100%',
+      transition: 'background-color 0.3s ease',
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        '& .card-media': {
+          opacity: 0.8, // Darken the image
+        },
+      },
+    }}
+    onClick={() => { 
+      navigate('/tablas');
+   }}
+>
+      <CardActionArea>
+        <CardMedia
+          className="card-media"
+          sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
+          component="img"
+          height="140"
+          image="/21959_Power_to_progress_Kia_K4_next-generation_compact_sedan_sets_new_design.jpg"
+          alt="dashboard"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {t('cards.card3')}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {t('cards.text3')} 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -90,7 +126,7 @@ function ActionAreaCard({role}) {
           sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
           component="img"
           height="140"
-          image="/kiacar.png"
+          image="/21960_Power_to_progress_Kia_K4_next-generation_compact_sedan_sets_new_design.jpg"
           alt="dashboard"
         />
         <CardContent>
@@ -99,42 +135,6 @@ function ActionAreaCard({role}) {
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {t('cards.text2')}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-
-    <Card 
-    sx={{
-      maxWidth: 420,
-      width: '100%',
-      transition: 'background-color 0.3s ease',
-      '&:hover': {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        '& .card-media': {
-          opacity: 0.8, // Darken the image
-        },
-      },
-    }}
-    onClick={() => { 
-      navigate('/tablas');
-   }}
->
-      <CardActionArea>
-        <CardMedia
-          className="card-media"
-          sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
-          component="img"
-          height="140"
-          image="/kiacar.png"
-          alt="dashboard"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {t('cards.card3')}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {t('cards.text3')} 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -162,7 +162,7 @@ function ActionAreaCard({role}) {
           sx={{ opacity: 1, transition: 'opacity 0.3s ease' }}
           component="img"
           height="140"
-          image="/kiacar.png"
+          image="/21956_Power_to_progress_Kia_K4_next-generation_compact_sedan_sets_new_design.jpg"
           alt="dashboard"
         />
         <CardContent>
@@ -198,7 +198,7 @@ function ActionAreaCard({role}) {
           <CardMedia
             component="img"
             height="140"
-            image="/kiacar.png"
+            image="/21954_Power_to_progress_Kia_K4_next-generation_compact_sedan_sets_new_design.jpg"
             alt="juego"
           />
           <CardContent>
