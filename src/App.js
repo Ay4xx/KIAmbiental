@@ -73,15 +73,22 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            autenticado
-               ? (
-                  role === "admin"
-                    ? <Dashboard onLogout={handleLogout} />
-                    : <UserDashboard onLogout={handleLogout} />
-                )
+            autenticado 
+            ?
+            <Navigate to="/home" replace />
+            : <Navigate to="/login" replace />
+            }
+           />
+           
+        <Route
+          path="/tablas"
+          element={
+            autenticado 
+              ? <Tables setAutenticado={setAutenticado} />
               : <Navigate to="/login" replace />
           }
         />
+
 
         <Route
           path="/home"
@@ -129,14 +136,7 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
-        <Route
-          path="/tablas"
-          element={
-            autenticado && role === "admin"
-              ? <Tables setAutenticado={setAutenticado} />
-              : <Navigate to="/login" replace />
-          }
-        />
+
 
       </Routes>
     </BrowserRouter>

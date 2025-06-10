@@ -9,10 +9,10 @@ export default function UnityPlayer() {
 
   // ajusta aquí los nombres exactos de tus ficheros en public/unity/
   const { unityProvider} = useUnityContext({
-    loaderUrl:    process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.loader.js',
-    dataUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.data',
-    frameworkUrl: process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.framework.js',
-    codeUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental3.0.wasm',
+    loaderUrl:    process.env.PUBLIC_URL + '/unity/KIAmbiental4.0.loader.js',
+    dataUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental4.0.data',
+    frameworkUrl: process.env.PUBLIC_URL + '/unity/KIAmbiental4.0.framework.js',
+    codeUrl:      process.env.PUBLIC_URL + '/unity/KIAmbiental4.0.wasm',
   });
 
 
@@ -53,3 +53,4 @@ export default function UnityPlayer() {
 
   )
 }
+
