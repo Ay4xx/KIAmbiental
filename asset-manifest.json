@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/KIAmbiental/static/css/main.6962033b.css",
+    "main.js": "/KIAmbiental/static/js/main.9aa467d4.js",
+    "static/js/239.4e371874.chunk.js": "/KIAmbiental/static/js/239.4e371874.chunk.js",
+    "static/js/977.37d87819.chunk.js": "/KIAmbiental/static/js/977.37d87819.chunk.js",
+    "static/js/732.667579c9.chunk.js": "/KIAmbiental/static/js/732.667579c9.chunk.js",
+    "static/js/453.c3f62f45.chunk.js": "/KIAmbiental/static/js/453.c3f62f45.chunk.js",
+    "static/media/KiaSignatureOTFBold.otf": "/KIAmbiental/static/media/KiaSignatureOTFBold.8c0af389a6850e9d1e81.otf",
+    "static/media/KiaSignatureOTFLight.otf": "/KIAmbiental/static/media/KiaSignatureOTFLight.e4b38d3dbc022e676336.otf",
+    "static/media/KiaSignatureOTFRegular.otf": "/KIAmbiental/static/media/KiaSignatureOTFRegular.adf9f156ff8153fb59c4.otf",
+    "static/media/Formula1-Wide.otf": "/KIAmbiental/static/media/Formula1-Wide.a4c5c2d90298960f0e82.otf",
+    "static/media/Formula1-Bold.otf": "/KIAmbiental/static/media/Formula1-Bold.94489425e19896648254.otf",
+    "static/media/Formula1-Regular.otf": "/KIAmbiental/static/media/Formula1-Regular.a5336cac9ba0fc563d1e.otf",
+    "index.html": "/KIAmbiental/index.html",
+    "main.6962033b.css.map": "/KIAmbiental/static/css/main.6962033b.css.map",
+    "main.9aa467d4.js.map": "/KIAmbiental/static/js/main.9aa467d4.js.map",
+    "239.4e371874.chunk.js.map": "/KIAmbiental/static/js/239.4e371874.chunk.js.map",
+    "977.37d87819.chunk.js.map": "/KIAmbiental/static/js/977.37d87819.chunk.js.map",
+    "732.667579c9.chunk.js.map": "/KIAmbiental/static/js/732.667579c9.chunk.js.map",
+    "453.c3f62f45.chunk.js.map": "/KIAmbiental/static/js/453.c3f62f45.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6962033b.css",
+    "static/js/main.9aa467d4.js"
+  ]
+}
