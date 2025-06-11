@@ -43,7 +43,7 @@ function WasteCounts() {
           <YAxis domain={[0, 'dataMax']} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="count_total" fill="#8884d8" />      
+          <Bar dataKey="count_total" fill="#05141f" />      
         </BarChart>
       </ResponsiveContainer>
     </Card>

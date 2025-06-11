@@ -39,7 +39,7 @@ function PorcentajeResiduosChart() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="percentage" fill="#8884d8" />      
+          <Bar dataKey="percentage" fill="#05141f" />      
         </BarChart>
       </ResponsiveContainer>
     </Card>

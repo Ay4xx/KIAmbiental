@@ -22,7 +22,9 @@
     "filtro": "Filtrar por tipo de residuo",
     "todos": "Todos",
     "pdf": "Exportar a PDF",
-    "excel": "Exportar a Excel"
+    "excel": "Exportar a Excel",
+    "fecha_inicio": "Fecha de inicio",
+    "fecha_fin": "Fecha de fin"
   },
   "cards": {
     "card1": "Tablero",

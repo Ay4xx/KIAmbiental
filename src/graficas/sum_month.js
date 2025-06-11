@@ -39,7 +39,7 @@ function SumMonth() {
           <YAxis dataKey="total_quantity"/>
           <Tooltip />
           <Legend />
-          <Bar dataKey="total_quantity" fill="#8884d8" />      
+          <Bar dataKey="total_quantity" fill="#05141f" />      
         </BarChart>
       </ResponsiveContainer>
     </Card>

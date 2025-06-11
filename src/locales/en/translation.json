@@ -22,7 +22,9 @@
     "filtro": "Filter by Waste Type",
     "todos": "All",
     "pdf": "Export to PDF",
-    "excel": "Export to Excel"
+    "excel": "Export to Excel",
+    "fecha_inicio": "Start Date",
+    "fecha_fin": "End Date"
   },
   "cards": {
     "card1": "Dashboard",
