@@ -118,12 +118,31 @@ function Tables() {
   }, [selectedTable]);
 
   // Filter logic
-  const filteredData = data.filter(row =>
-    row.every((cell, idx) =>
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // Filtrado combinado de datos (texto + fecha)
+  const filteredData = data.filter(row => {
+    const textFilterPass = row.every((cell, idx) =>
       filters[idx] === "" ||
       String(cell).toLowerCase().includes(filters[idx].toLowerCase())
-    )
-  );
+    );
+    let dateFilterPass = true;
+    // Se asume que la fecha de colección está en row[1] en formato YYYY-MM-DD
+    if (startDate) {
+      const rowDate = new Date(row[1]);
+      if (rowDate < new Date(startDate)) {
+        dateFilterPass = false;
+      }
+    }
+    if (endDate) {
+      const rowDate = new Date(row[1]);
+      if (rowDate > new Date(endDate)) {
+        dateFilterPass = false;
+      }
+    }
+    return textFilterPass && dateFilterPass;
+  });
 
   const handleFilterChange = (idx, value) => {
     const newFilters = [...filters];
@@ -199,7 +218,8 @@ function Tables() {
 
   return (
     <Box sx={{ background: "#f4f6fa", minHeight: "100vh", p: 0 }}
-      style={{ overflowX: 'hidden' }}>
+      style={{ overflowX: 'hidden', overflowY: 'auto'
+      }}>
       <header className='header' id="header"
         style={{
           position: 'sticky',
@@ -245,24 +265,44 @@ function Tables() {
               </select>
             </label>
             {selectedTable === "residue_logs" && (
-              <label>
-                {t('tables.filtro')}:&nbsp;
-                <select
-                  value={selectedResidueType}
-                  onChange={e => setSelectedResidueType(e.target.value)}
-                  style={{ padding: 4, borderRadius: 4 }}
-                >
-                  <option value="">{t('tables.todos')}</option>
-                  {residueTypes.map((type, idx) => (
-                    <option key={idx} value={type}>{type}</option>
-                  ))}
-                </select>
-              </label>
+              <>
+                <label>
+                  {t('tables.filtro')}:&nbsp;
+                  <select
+                    value={selectedResidueType}
+                    onChange={e => setSelectedResidueType(e.target.value)}
+                    style={{ padding: 4, borderRadius: 4 }}
+                  >
+                    <option value="">{t('tables.todos')}</option>
+                    {residueTypes.map((type, idx) => (
+                      <option key={idx} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  {t('tables.fecha_inicio')}:&nbsp;
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={e => setStartDate(e.target.value)}
+                    style={{ padding: 4, borderRadius: 4 }}
+                  />
+                </label>
+                <label>
+                  {t('tables.fecha_fin')}:&nbsp;
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={e => setEndDate(e.target.value)}
+                    style={{ padding: 4, borderRadius: 4 }}
+                  />
+                </label>
+              </>
             )}
-            <button onClick={handleExportExcel} style={{ padding: "6px 16px", borderRadius: 4, background: "#1976d2", color: "#fff", border: "none" }}>
+            <button onClick={handleExportExcel} style={{ padding: "6px 16px", borderRadius: 4, background: "#05141f", color: "#fff", border: "none" }}>
               {t('tables.excel')}
             </button>
-            <button onClick={handleExportPDF} style={{ padding: "6px 16px", borderRadius: 4, background: "#e57373", color: "#fff", border: "none" }}>
+            <button onClick={handleExportPDF} style={{ padding: "6px 16px", borderRadius: 4, background: "#05141f", color: "#fff", border: "none" }}>
               {t('tables.pdf')}
             </button>
           </div>
@@ -279,7 +319,9 @@ function Tables() {
                           background: '#05141f',
                           color: '#fff',
                           borderRight: '1px solid #e0e0e0',
-                          position: 'relative'
+                          position: 'sticky',  // Hace que se quede fijo
+                          top: 0,             // Desde la parte superior
+                          zIndex: 2           // Asegura que se superponga al contenido
                         }}
                       >
                         <span style={{ display: "block", marginBottom: 8 }}>{title}</span>
@@ -304,12 +346,7 @@ function Tables() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.filter(row =>
-                    row.every((cell, idx) =>
-                      filters[idx] === "" ||
-                      String(cell).toLowerCase().includes(filters[idx].toLowerCase())
-                    )
-                  ).map((row, i) => (
+                  {filteredData.map((row, i) => (
                     <TableRow
                       key={i}
                       sx={{

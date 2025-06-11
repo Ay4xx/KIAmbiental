@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
 import Home  from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import UserDashboard from "./pages/UserDashboard"; //  crearlo
 
 import Perfil from "./pages/Perfil";
 import Registro from "./pages/Registro";

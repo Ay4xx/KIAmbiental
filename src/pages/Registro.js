@@ -118,7 +118,7 @@ const Registro =  ({ admin }) => {
             style={{ height: 25, padding: 0 }}
           />
           <h1 style={{ margin: 0, color: "#ffffff", fontWeight: 700, fontSize: 36 }}>
-            {t('registro.title')}</h1>
+            mbiental</h1>
         </div>
 
         {/* Registration Form - bigger container */}
