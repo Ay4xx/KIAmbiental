@@ -74,7 +74,7 @@ function App() {
           element={
             autenticado 
             ?
-            <Navigate to="/home" replace />
+            <Dashboard setAutenticado={setAutenticado}  />
             : <Navigate to="/login" replace />
             }
            />
