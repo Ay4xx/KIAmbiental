@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import CantidadXarea from "../graficas/cantidadXarea.js";
-import KgXano from "../graficas/kgXano.js";
-import WasteTypeByArea from "../graficas/waste_type_by_area.js";
-import TransportCoBYwasteType from "../graficas/transportCoBYwasteType.js";
-import KPIgraph from "../graficas/KPIgraphs.js";
+import PorcentajeResiduosChart from "../graficas/porcentaje_residuos.js";
+import QuantitySumTransporter from "../graficas/quantity_sum_transporter.js";
+import SumMonth from "../graficas/sum_month.js";
+import WasteCounts from "../graficas/waste_counts.js";
 
 import React, {useState} from 'react';
 
@@ -17,12 +16,11 @@ function Dashboard() {
   const [search, setSearch] = useState("");
 
   const graphs = [
-    { name: "KPI", component: <KPIgraph /> },
-    { name: "Cantidad por Área", component: <CantidadXarea /> },
-    { name: "Kg X Año", component: <KgXano /> },
-    { name: "Tipo de residuo por área", component: <WasteTypeByArea /> },
-    { name: "Compañia de transporte por tipo de residuo", component: <TransportCoBYwasteType /> },
-  ];
+    { name: "Porcentaje de residuos", component: <PorcentajeResiduosChart /> },
+    { name: "Cantidad total de residuos por transportista", component: <QuantitySumTransporter /> },
+    { name: "Suma de cantidad por mes por tipo de residuo", component: <SumMonth /> },
+    { name: "Contador de tipos de residuos", component: <WasteCounts /> }
+    ];
   
   const filteredGraphs = graphs.filter(g =>
     g.name.toLowerCase().includes(search.toLowerCase())
